@@ -60,6 +60,21 @@ const projects = [
     subtitle: "Full-Stack Deployment Platform",
     summary:
       "A Vercel-like deployment platform with automated builds, Docker isolation, AWS integrations, and a dashboard for deployment logs.",
+      description: [
+    "Vercel Clone is a simplified cloud deployment platform inspired by Vercel that automates the deployment of static web applications directly from GitHub repositories. The primary objective of this project was to understand how modern deployment platforms work internally while gaining hands-on experience with cloud services, deployment automation, and DevOps workflows.",
+
+    "The deployment process begins with a React frontend where users submit the GitHub repository URL of their project. The frontend sends the deployment request to the backend through REST APIs.",
+
+    "The backend clones the repository, detects the project, installs dependencies, and executes the appropriate build commands to generate optimized production-ready files inside the build or dist directory.",
+
+    "After a successful build, the backend uploads every generated file to an AWS S3 bucket that serves as the static hosting platform. Rather than performing uploads silently, the backend streams real-time deployment logs to the frontend, allowing users to monitor every deployment step.",
+
+    "During deployment, users can see logs such as 'Uploading index.html', 'Uploaded index.html', 'Uploading style.css', and finally 'Deployment Complete'. This transparency helps users understand exactly what is happening and makes debugging deployment failures much easier.",
+
+    "Once all files are uploaded successfully, the application is served through a custom domain instead of the default S3 website endpoint, providing a cleaner and more production-like deployment experience.",
+
+    "The dashboard also includes a live preview section displaying the deployed project's name, live URL, deployment status, and a button to open the deployed website immediately after deployment completes."
+  ],
     stack: ["React", "Node.js", "Docker", "AWS", "CI/CD"],
     highlights: [
       "Built a real-time build pipeline that reduced deployment from 5+ manual steps to a single automated process.",
@@ -77,6 +92,28 @@ const projects = [
     subtitle: "Infrastructure Transparency Platform",
     summary:
       "A full-stack transparency platform with role-based dashboards, blockchain-backed records, and IPFS document verification.",
+      
+      description: [
+  "InfraLedger is a blockchain-powered infrastructure monitoring platform designed to improve transparency, accountability, and trust in public infrastructure projects. The platform prevents corruption and fund misuse by creating an immutable record of project activities such as fund releases, milestone approvals, project updates, and supporting evidence.",
+
+  "The idea behind the project came from the lack of transparency in government infrastructure projects, where citizens often have little visibility into project progress or public fund utilization. Instead of relying on traditional centralized databases, InfraLedger combines blockchain technology with AI-powered analytics to create a secure and tamper-resistant monitoring platform.",
+
+  "The platform is built using React for the frontend, Node.js and Express with TypeScript for the backend, PostgreSQL managed through Prisma ORM, Polygon blockchain integration using Hardhat and Ethers.js, IPFS via Pinata for decentralized storage, and a local AI-powered risk analysis engine.",
+
+  "InfraLedger supports multiple user roles including Government Officials, Contractors, Citizens, Checkers, and Approvers. Contractors create projects and upload progress updates with supporting evidence, government officials monitor projects and approve milestones, while citizens can transparently track project progress and verify how public funds are being utilized.",
+
+  "A key feature of the platform is its milestone-based fund release mechanism. Instead of releasing the complete budget at once, funds are released incrementally after project milestones are approved. Every release request passes through a Maker–Checker–Approver workflow, ensuring multiple levels of verification before transactions are finalized.",
+
+  "To guarantee data integrity, every important transaction such as project creation, milestone approvals, and fund releases is permanently recorded on the Polygon blockchain. Large files like images and project documents are stored on IPFS through Pinata, while only the immutable content hash is written to the blockchain, reducing storage costs while preserving verifiability.",
+
+  "The AI-powered Risk Analysis Engine continuously evaluates projects using parameters such as project completion percentage, released funds, milestone progress, delays, and other indicators. Based on these inputs, the system predicts project risk levels and generates explainable insights that help officials identify potentially risky projects before major issues arise.",
+
+  "The dashboard provides real-time visibility into project progress, budgets, milestones, approvals, blockchain transaction history, AI-generated risk scores, and uploaded evidence. Role-based authentication ensures every user can only access features relevant to their responsibilities.",
+
+  "Developing InfraLedger provided hands-on experience with blockchain development, smart contracts, decentralized storage, full-stack application development, authentication, role-based authorization, AI integration, database management, and secure cloud deployment. One of the biggest challenges was synchronizing communication between the React frontend, Express backend, PostgreSQL database, Polygon smart contracts, and IPFS while maintaining consistency and security.",
+
+  "Although currently implemented as a prototype, InfraLedger demonstrates how blockchain and artificial intelligence can improve transparency and accountability in public infrastructure management. Future enhancements include integrating real government datasets, supporting multiple blockchain networks, implementing digital identity verification, adding predictive analytics, generating AI-powered audit reports, and integrating GIS-based project tracking."
+],
     stack: ["React", "Node.js", "Express", "TypeScript", "Prisma", "Polygon", "IPFS"],
     highlights: [
       "Supported 3 user roles: government, contractors, and citizens with role-based dashboards.",
@@ -94,6 +131,23 @@ const projects = [
     subtitle: "AI-Powered Civic Transparency Platform",
     summary:
       "An AI platform for civic transparency with OCR, ML, and dashboards for tracking data fields and anomaly detection.",
+      description: [
+  "CivicSim is an AI-powered civic transparency platform developed to improve accountability in government projects and help detect corruption using Artificial Intelligence. The platform enables citizens and government authorities to verify official documents, monitor public fund utilization, and identify suspicious activities through AI-driven analysis.",
+
+  "The project was built with a React frontend and a FastAPI backend written in Python. Users can upload government-related documents through the web interface, while the backend processes requests and integrates with Google Gemini AI to determine whether uploaded documents are authentic or fraudulent.",
+
+  "The AI-powered document verification system not only classifies documents as genuine or fake but also generates confidence scores and explainable reasoning for its predictions. This provides greater transparency and helps users understand why a document has been flagged as suspicious.",
+
+  "To enhance transparency, the platform integrates with official government APIs from data.gov.in to retrieve real-time information about government schemes, fund allocation, and public expenditure. The retrieved data is compared with uploaded documents to identify inconsistencies and generate corruption risk scores.",
+
+  "The platform also analyzes multiple parameters such as missing information, suspicious keywords, unusual spending patterns, and data inconsistencies to identify potential corruption indicators. These AI-generated insights assist authorities in detecting irregularities at an early stage.",
+
+  "One of the major features of CivicSim is the Government Transparency Dashboard, which presents healthcare budget allocation, ministry-wise expenditure, project progress, and public fund utilization through interactive charts and visual analytics. The dashboard enables users to easily monitor government performance and identify projects that require further investigation.",
+
+  "Project information and analysis results are stored using SQLite, while Docker is used to containerize the application, ensuring consistent deployment across different development and production environments.",
+
+  "Developing CivicSim provided hands-on experience with React, FastAPI, Python, Google Gemini AI, REST APIs, Docker, government API integration, data visualization, and AI-powered document verification. The project demonstrated how Artificial Intelligence combined with real-time public datasets can improve transparency, strengthen accountability, and build greater public trust in government systems."
+],
     stack: ["Python", "React", "FastAPI", "OCR", "ML"],
     highlights: [
       "Led development of an AI platform achieving 90%+ OCR accuracy on 100+ documents.",
@@ -111,6 +165,23 @@ const projects = [
     subtitle: "Citizen Services Workflow Platform",
     summary:
       "A citizen-service assistant that guides users through schemes, applications, document checklists, and status tracking.",
+      description: [
+  "Sarkaar Saathi is an AI-powered government schemes assistance platform designed to simplify access to Indian government welfare schemes. The platform helps citizens discover, understand, and apply for government schemes by allowing them to ask questions in both text and voice across multiple Indian languages.",
+
+  "The application is built with a React frontend and a FastAPI backend. Users interact with an AI chatbot that processes their queries using a Retrieval-Augmented Generation (RAG) architecture. Instead of relying solely on a Large Language Model, the system first retrieves relevant information from official government scheme documents stored in a vector database before generating responses.",
+
+  "The backend converts uploaded government scheme documents into vector embeddings using a vector database such as FAISS or Pinecone. When a user submits a query, the most relevant document sections are retrieved and passed to an AI model like Google Gemini or Ollama, enabling the chatbot to provide accurate, context-aware answers based on official sources.",
+
+  "One of the key features of Sarkaar Saathi is its multilingual support. Citizens can interact with the platform using both text and voice in more than ten Indian languages, making government information accessible to users from diverse linguistic backgrounds.",
+
+  "The platform also includes an Admin Dashboard where administrators can upload new government scheme PDF documents. These documents are automatically processed, chunked, converted into vector embeddings, and stored in the vector database, ensuring that newly published schemes become immediately searchable by the AI assistant.",
+
+  "MongoDB is used to store user information, chatbot interactions, and platform analytics, while Docker containerizes the application to provide a consistent deployment environment across development and production systems.",
+
+  "Building Sarkaar Saathi provided hands-on experience with React, FastAPI, Retrieval-Augmented Generation (RAG), vector databases, AI model integration, MongoDB, Docker, REST APIs, multilingual voice processing, and document embedding pipelines. The project demonstrated how modern AI assistants combine semantic search with Large Language Models to deliver reliable, explainable, and up-to-date responses for real-world government services.",
+
+  "Although currently implemented as a prototype, Sarkaar Saathi has the potential to become a comprehensive digital assistant for government services. Future enhancements include direct integration with official government portals, personalized scheme recommendations based on user profiles, application status tracking, OCR-based document verification, and AI-powered guidance throughout the complete application process."
+],
     stack: ["React", "Node.js", "Express", "MySQL"],
     highlights: [
       "Organizes government service flows into a clean step-by-step user journey.",
@@ -143,6 +214,23 @@ const projects = [
     subtitle: "OCR Invoice Automation",
     summary:
       "An OCR-driven pipeline for extracting invoice fields, validating line items, and preparing structured outputs for finance systems.",
+      description: [
+  "Invoice Processing Tool is a full-stack document automation application designed to extract structured information from both typed and handwritten invoices. The platform automates invoice processing using Optical Character Recognition (OCR), reducing manual data entry while improving speed and accuracy for financial workflows.",
+
+  "The application consists of a React frontend and a Flask backend developed in Python. Users can upload invoice images through the web interface, where the backend processes the documents using either Tesseract OCR or Google Cloud Vision API depending on the availability and quality of the input.",
+
+  "The OCR pipeline extracts raw text from uploaded invoices and automatically identifies important business information including invoice number, invoice date, vendor details, customer information, line items, subtotal, tax amount, and the final payable amount. The extracted data is converted into a structured format that can be easily consumed by downstream business applications.",
+
+  "To improve reliability, the platform implements a hybrid OCR approach. Google Cloud Vision API is used for high-accuracy cloud-based text recognition, while Tesseract OCR serves as a fallback mechanism whenever cloud processing is unavailable or encounters an error. This ensures uninterrupted invoice processing across different deployment environments.",
+
+  "The backend exposes REST APIs that communicate with the React frontend and supports secure file uploads through Flask. Uploaded invoice images are temporarily stored, processed by the OCR engine, and the extracted results are returned to the frontend for visualization and validation before further processing.",
+
+  "The modular architecture allows the OCR engine, document parser, and machine learning components to operate independently, making it easier to extend the platform with advanced document understanding models such as Donut or LayoutLM for more complex invoice formats.",
+
+  "Building this project provided hands-on experience with Python, Flask, React, REST APIs, Optical Character Recognition (OCR), Tesseract OCR, Google Cloud Vision API, Flask-CORS, document parsing, file upload handling, and full-stack application development. It also strengthened my understanding of intelligent document processing and automation workflows.",
+
+  "Although currently implemented as an invoice processing solution, the platform can be extended into a complete Intelligent Document Processing (IDP) system by integrating AI-based field validation, receipt processing, purchase order matching, ERP integration, document classification, fraud detection, and automated accounting workflows for enterprise environments."
+],
     stack: ["Python", "FastAPI", "OCR", "MySQL"],
     highlights: [
       "Extracts vendor, invoice, date, and amount fields from document scans.",
@@ -159,6 +247,23 @@ const projects = [
     subtitle: "Skill-to-Career Guidance System",
     summary:
       "A lightweight guidance tool that maps profiles and skills to career paths, strengths, and next-step recommendations.",
+      description: [
+  "Career Prediction is a full-stack machine learning application developed during the HackMarch Hackathon at KLE Society. The platform predicts a student's most suitable future career path by analyzing academic performance, behavioral traits, technical skills, and personal attributes using an AI-powered machine learning model.",
+
+  "The application consists of a lightweight frontend built with HTML, CSS, and JavaScript, while the backend is developed in Python. Users provide information such as academic scores, technical proficiency, extracurricular participation, leadership experience, communication skills, and other personal characteristics through an interactive web interface.",
+
+  "The backend preprocesses the collected data by handling missing values, performing feature engineering, converting data types, and balancing the dataset using undersampling techniques. A new feature called 'Tech Level' is derived from users' technical proficiency to improve the overall predictive performance of the model.",
+
+  "The machine learning model is built using AutoGluon's TabularPredictor, which automatically trains and evaluates multiple algorithms to identify the best-performing model. After training, the model achieved more than 85% prediction accuracy and was exported along with all preprocessing artifacts for future deployment.",
+
+  "Once a user submits the input form, the backend processes the data through the trained model and predicts the most suitable career path. Possible predictions include Engineer, Doctor, Entrepreneur, Researcher, Artist, and several other professional fields based on the user's profile.",
+
+  "The project stores trained models, preprocessing artifacts, and feature metadata to ensure consistent predictions during deployment. The modular architecture also allows the machine learning model to be retrained with larger datasets without requiring changes to the frontend.",
+
+  "Developing this project provided hands-on experience with Python, AutoGluon, pandas, scikit-learn, feature engineering, data preprocessing, class balancing, model evaluation, machine learning deployment, and full-stack application development. It also demonstrated how AutoML techniques can simplify model selection while maintaining high prediction accuracy.",
+
+  "Although currently developed as a hackathon prototype, the platform can be extended into a complete AI-based career guidance system by integrating psychometric assessments, resume analysis, skill-gap recommendations, personalized learning roadmaps, real-time job market insights, and university admission guidance to provide comprehensive career counseling."
+],
     stack: ["Python", "React", "ML", "Node.js"],
     highlights: [
       "Matches skills to possible career paths with explainable recommendations.",
@@ -412,53 +517,179 @@ function ProjectDetailPage({ project, onBack, theme, onToggleTheme }) {
       <div className="pointer-events-none fixed inset-y-0 right-0 w-[32vw] bg-[radial-gradient(circle_at_top,var(--color-right-glow),transparent_60%)]" />
 
       <main className="mx-auto w-[min(1320px,calc(100%-32px))] pb-16 pt-14 sm:pt-20">
+
+        {/* Header */}
         <div className="mb-8 flex items-center justify-between gap-4">
-          <button type="button" onClick={onBack} className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 font-semibold transition hover:-translate-y-0.5"
+          >
             <ArrowLeftIcon />
-            Back to projects
+            Back to Projects
           </button>
+
           <div className="flex items-center gap-3">
-            <a href="mailto:rishavkumar7034@gmail.com" className="inline-flex items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5">Contact</a>
-            <button type="button" onClick={onToggleTheme} className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] transition hover:-translate-y-0.5" aria-label="Toggle light and dark theme">
+            <a
+              href="mailto:rishavkumar7034@gmail.com"
+              className="inline-flex items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 font-semibold transition hover:-translate-y-0.5"
+            >
+              Contact
+            </a>
+
+            <button
+              onClick={onToggleTheme}
+              className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)]"
+            >
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
             </button>
           </div>
         </div>
 
-        <section className="grid gap-6 xl:grid-cols-[1.5fr_0.85fr]">
-          <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)] sm:p-9">
-            <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">{project.period} • {project.role}</p>
-            <h1 className="text-[2.8rem] leading-[0.95] font-extrabold tracking-[-0.06em] sm:text-[4rem]">{project.title}</h1>
-            <p className="mt-4 max-w-3xl text-[1.15rem] leading-[2.1rem] text-[var(--color-body)]">{project.summary}</p>
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {project.stack.map((item) => <ProjectTag key={item}>{item}</ProjectTag>)}
+        <section className="grid gap-6 xl:grid-cols-[2fr_0.8fr]">
+
+          {/* LEFT */}
+
+          <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-[var(--shadow-card)]">
+
+            <p className="text-sm uppercase tracking-[0.3em] text-[var(--color-section-muted)]">
+              {project.period} • {project.role}
+            </p>
+
+            <h1 className="mt-3 text-6xl font-extrabold tracking-tight">
+              {project.title}
+            </h1>
+
+            <p className="mt-6 text-lg leading-9 text-[var(--color-body)]">
+              {project.summary}
+            </p>
+
+            {/* Project Overview */}
+
+            {project.description && (
+              <div className="mt-12">
+                <h2 className="mb-6 text-3xl font-bold">
+                  Project Overview
+                </h2>
+
+                <div className="space-y-6">
+                  {project.description.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="text-[1.05rem] leading-9 text-[var(--color-body)]"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Tech Stack */}
+
+            <div className="mt-12">
+              <h2 className="mb-5 text-3xl font-bold">
+                Tech Stack
+              </h2>
+
+              <div className="flex flex-wrap gap-3">
+                {project.stack.map((tech) => (
+                  <ProjectTag key={tech}>
+                    {tech}
+                  </ProjectTag>
+                ))}
+              </div>
             </div>
-            <div className="mt-10 grid gap-4 md:grid-cols-2">
-              {project.highlights.map((item) => (
-                <div key={item} className="rounded-[22px] border border-[var(--color-border)] bg-[var(--color-card-soft-2)] p-5 text-[1rem] leading-8 text-[var(--color-body)]">{item}</div>
-              ))}
+
+            {/* Highlights */}
+
+            <div className="mt-12">
+              <h2 className="mb-6 text-3xl font-bold">
+                Key Features
+              </h2>
+
+              <div className="grid gap-5 md:grid-cols-2">
+                {project.highlights.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card-soft-2)] p-6"
+                  >
+                    <p className="leading-8 text-[var(--color-body)]">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
+
           </article>
 
+          {/* RIGHT SIDEBAR */}
+
           <aside className="space-y-6">
-            <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)]">
-              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">Project Summary</p>
-              <p className="text-[1.02rem] leading-8 text-[var(--color-body)]">This page shows the project as a dedicated detail view so each card opens into its own focused page.</p>
-            </article>
-            <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)]">
-              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">GitHub</p>
-              <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[1rem] font-semibold text-[var(--color-text)] transition hover:opacity-80">
-                Open GitHub repo
+
+            <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7">
+
+              <h3 className="mb-5 text-xl font-bold">
+                Project Details
+              </h3>
+
+              <div className="space-y-4">
+
+                <div>
+                  <p className="text-sm text-[var(--color-section-muted)]">
+                    Role
+                  </p>
+
+                  <p>{project.role}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-[var(--color-section-muted)]">
+                    Timeline
+                  </p>
+
+                  <p>{project.period}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-[var(--color-section-muted)]">
+                    Technologies
+                  </p>
+
+                  <p>{project.stack.join(", ")}</p>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7">
+
+              <h3 className="mb-5 text-xl font-bold">
+                GitHub Repository
+              </h3>
+
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--color-card-soft)] px-5 py-3 font-semibold transition hover:-translate-y-1"
+              >
+                Open Repository
                 <ArrowUpRightIcon />
               </a>
-            </article>
+
+            </div>
+
           </aside>
+
         </section>
+
       </main>
     </div>
   );
 }
-
 function AboutPage({ theme, onToggleTheme, onBack }) {
   return (
     <div className="min-h-screen bg-transparent text-[var(--color-text)] transition-colors duration-300">
