@@ -85,6 +85,62 @@ const projects = [
     github: "https://github.com/rishav-026/Vercel-clone",
     role: "Full-stack developer",
   },
+
+  {
+    slug: "logintelligence",
+    title: "LogIntelligence",
+    period: "2026",
+    subtitle: "DevOps Log Intelligence Platform",
+    summary:
+      "An AI-powered platform for analyzing and diagnosing production logs with real-time incident reporting.",
+      description: [
+        "The main objective of this project is to reduce the time engineers spend manually investigating production incidents by automatically converting raw production logs into structured incident reports and guided investigation workflows.",
+
+"In modern cloud-native environments, applications are deployed across multiple technologies such as Kubernetes, Docker, PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ, and Spring Boot. During a production outage, these systems generate thousands of log lines. Engineers often have to manually inspect these logs, identify the affected technology, correlate infrastructure metrics, determine the root cause, and decide which commands to execute for troubleshooting. This manual process is time-consuming and error-prone, especially during high-severity incidents.",
+
+"To solve this problem, I built LogIntelligence, which automates the initial incident investigation process.",
+
+"The workflow begins when a user uploads a production log file through the web interface built with Next.js, React, TypeScript, and Tailwind CSS. The frontend sends the log file to a FastAPI backend through a REST API.",
+
+"The first backend component is the Regex Parser. The parser reads the uploaded log and extracts structured information such as exception names, stack traces, CPU usage, memory usage, latency, HTTP status codes, exit codes, Kubernetes metadata, Docker container details, namespaces, ports, and technology-specific keywords. The parser converts unstructured log data into structured metadata that can be processed by the remaining components.",
+
+"After parsing, the structured metadata is passed to the Technology Detection Engine. This module automatically identifies the technologies involved in the incident. For example, if the log contains keywords like pg_isready, 5432, or PostgreSQL, the system detects PostgreSQL. Similarly, it identifies Redis, MongoDB, Kafka, RabbitMQ, Docker, Kubernetes, Spring Boot, FastAPI, and other supported technologies.",
+
+"Once the technology is detected, the metadata is sent to the Deterministic Rule Engine, which is one of the core components of the project. The Rule Engine evaluates the extracted evidence using predefined rules instead of relying on AI for operational decisions. It determines the incident severity, calculates a confidence score, identifies infrastructure patterns such as memory exhaustion or connection failures, and selects the appropriate Technology Playbook.",
+
+"The Technology Playbooks contain manually designed operational knowledge for each supported technology. Each playbook includes deterministic investigation commands, expected command outputs, recovery procedures, verification checklists, prevention strategies, and recommended configuration patches. For example, if the detected technology is PostgreSQL, the playbook returns commands such as pg_isready and SELECT * FROM pg_stat_activity. If the technology is Redis, the playbook returns commands like redis-cli INFO memory and Redis-specific recovery procedures. Because these playbooks are deterministic, the platform always generates technology-appropriate operational guidance and avoids hallucinated or unsafe commands.",
+
+"The project also integrates LangChain and Ollama running a local Llama 3 model. Unlike many AI-based log analysis systems, the language model is not responsible for generating commands, investigation steps, or recovery procedures. Instead, LangChain orchestrates the interaction with the local language model, providing the extracted evidence and deterministic findings as context. The language model is used only to generate natural-language sections such as the Executive Summary, Incident Summary, Business Impact, and technical explanations. This separation ensures that AI improves readability without influencing operational decisions.",
+
+"Before the final report is generated, all outputs pass through a Validation Layer. The validation layer ensures that operational commands, investigation steps, and verification procedures originate only from the deterministic playbooks. If the language model produces any operational suggestion that conflicts with the selected playbook, the deterministic data takes precedence. This hybrid architecture significantly reduces hallucinations while still benefiting from AI-generated explanations.",
+
+"After validation, the backend combines all deterministic information and AI-generated narratives into a single structured JSON object. This JSON contains incident metadata, executive summary, root cause analysis, evidence board, infrastructure metrics, application stack details, investigation workspace, recovery procedures, verification checklist, prevention strategies, and recommended configuration patches.",
+
+"The frontend then renders this JSON into an enterprise-style Production Incident Report. One of the major features is the Interactive Investigation Workspace, which provides a guided troubleshooting workflow. Engineers can review technology-specific commands, expected outputs, evidence, findings, and recommended next steps. Importantly, these commands are never executed by the platform—they are displayed as deterministic guidance derived from the technology playbooks.",
+      ],
+    stack: [
+  "Python",
+  "FastAPI",
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Tailwind CSS",
+  "SQLite",
+  "LangChain",
+  "Ollama",
+],
+
+highlights: [
+  "Transforms raw production logs into structured incident reports using deterministic log analysis.",
+  "Automatically detects technologies including PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ, Docker, and Kubernetes.",
+  "Generates guided investigation workflows, recovery steps, verification checklists, and configuration patches through technology-specific playbooks.",
+],
+
+github: "https://github.com/rishav-026/LogIntelligence",
+
+role: "Full Stack Developer & Backend Architect",
+  },
+
   {
     slug: "infraledger",
     title: "InfraLedger",
@@ -273,7 +329,43 @@ const projects = [
     github: "https://github.com/rishav-026/Career-Predictor-Project",
     role: "ML-assisted developer",
   },
+
+
+  {
+    slug: "career-prediction",
+    title: "Career Prediction",
+    period: "2026",
+    subtitle: "Skill-to-Career Guidance System",
+    summary:
+      "A lightweight guidance tool that maps profiles and skills to career paths, strengths, and next-step recommendations.",
+      description: [
+        "My project is called LogIntelligence. It is an AI-powered DevOps Log Intelligence and Incident Diagnostic Platform. The main idea behind this project is to reduce the time engineers spend analyzing production logs during system failures.",
+
+"In a real production environment, whenever an application crashes or becomes slow, it generates thousands of log lines. Reading all those logs manually is difficult and takes a lot of time. So, I built a platform that automatically analyzes the logs and generates a structured incident report.",
+
+'The workflow starts when the user uploads a production log file. The backend, which is built using FastAPI, first uses a Regex Parser to extract useful information like exception names, CPU usage, memory usage, HTTP status codes, latency, exit codes, and other infrastructure details.',
+
+'After extracting the information, the system automatically detects which technologies are present in the log, such as PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ, Docker, Kubernetes, or Spring Boot.',
+
+'Once the technologies are identified, the Rule Engine selects the correct Technology Playbook. I have created these playbooks manually. Each playbook contains technology-specific investigation commands, recovery steps, verification checklists, prevention strategies, and configuration patches. This ensures that the commands shown in the report are always correct for the detected technology.',
+
+'The project also uses LangChain and Ollama (Llama 3). Their job is not to generate commands or recovery steps. Instead, they generate human-readable sections like the Executive Summary, Incident Summary, Business Impact, and technical explanations, making the report easier to understand.',
+
+'After that, a Validation Layer combines the deterministic data from the Rule Engine and the AI-generated explanations into a structured JSON response. Finally, the React frontend displays everything as a professional Production Incident Report along with an Interactive Investigation Workspace, where engineers can follow the investigation commands step by step.',
+
+'The biggest design decision in my project is that AI never decides operational commands. All investigation commands, recovery procedures, and verification steps come from deterministic playbooks that I created, while AI is used only to explain the incident in simple language. This reduces the chances of AI hallucinating incorrect commands and makes the system more reliable for production use.',
+      ],
+    stack: ["Python", "React", "ML", "Node.js"],
+    highlights: [
+      "Matches skills to possible career paths with explainable recommendations.",
+      "Highlights strengths, gaps, and suggested learning milestones.",
+      "Useful for student guidance and early-career planning.",
+    ],
+    github: "https://github.com/rishav-026/Career-Predictor-Project",
+    role: "ML-assisted developer",
+  },
 ];
+
 
 const achievements = [
   "🏆 Winner - Srujana Hackathon 2025",
