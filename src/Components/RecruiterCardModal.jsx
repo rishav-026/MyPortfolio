@@ -3,7 +3,10 @@ import { X, QrCode, Download, Copy, Check, Mail, Phone, MapPin, Award, ShieldChe
 
 export default function RecruiterCardModal({ isOpen, onClose, onShowToast, onOpenResume }) {
   const [copied, setCopied] = useState(false);
-  const currentUrl = typeof window !== "undefined" ? window.location.origin + window.location.pathname : "https://github.com/rishav-026";
+  const currentUrl =
+    typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1"
+      ? window.location.origin + window.location.pathname
+      : "https://my-portfolio-one-beryl-52.vercel.app/";
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}&color=10-185-129&bgcolor=15-23-42`;
 
   if (!isOpen) return null;
