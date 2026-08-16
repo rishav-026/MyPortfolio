@@ -13,7 +13,7 @@
 <br/><br/>
 
 [![Portfolio](https://img.shields.io/badge/🌐_Live_Interactive_Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=10B981)](https://my-portfolio-one-beryl-52.vercel.app/)
-[![Resume](https://img.shields.io/badge/📄_View_Resume_PDF-EAB308?style=for-the-badge&logo=adobeacrobatreader&logoColor=black)](https://github.com/rishav-026/MyPortfolio/raw/main/public/resume.pdf)
+[![Resume](https://img.shields.io/badge/📄_View_Resume_PDF-EAB308?style=for-the-badge&logo=adobeacrobatreader&logoColor=black)](https://github.com/rishav-026/MyPortfolio/blob/main/public/resume.pdf)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rishavkumar12/)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rishav-026)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://leetcode.com/u/rishav1kr/)
@@ -37,7 +37,7 @@
         <li><b>Academic CGPA:</b> <b>8.20 / 10</b></li>
         <li><b>Certification:</b> <b>Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate</b></li>
         <li><b>Problem Solving:</b> <b>150+ DSA Problems Solved</b> in Java on LeetCode (<code>@rishav1kr</code>)</li>
-        <li><b>Resume:</b> <a href="https://github.com/rishav-026/MyPortfolio/raw/main/public/resume.pdf"><b>📄 Download Resume PDF</b></a></li>
+        <li><b>Resume:</b> <a href="https://github.com/rishav-026/MyPortfolio/blob/main/public/resume.pdf"><b>📄 View Resume PDF (In Browser)</b></a></li>
       </ul>
     </td>
     <td width="50%" valign="top">
@@ -138,7 +138,7 @@
 
 [![Portfolio](https://img.shields.io/badge/🌐_LIVE_PORTFOLIO-000000?style=for-the-badge&logo=vercel&logoColor=10B981)](https://my-portfolio-one-beryl-52.vercel.app/)
 &nbsp;&nbsp;
-[![Resume](https://img.shields.io/badge/📄_VIEW_RESUME-EAB308?style=for-the-badge&logo=adobeacrobatreader&logoColor=black)](https://github.com/rishav-026/MyPortfolio/raw/main/public/resume.pdf)
+[![Resume](https://img.shields.io/badge/📄_VIEW_RESUME-EAB308?style=for-the-badge&logo=adobeacrobatreader&logoColor=black)](https://github.com/rishav-026/MyPortfolio/blob/main/public/resume.pdf)
 &nbsp;&nbsp;
 [![LinkedIn](https://img.shields.io/badge/LINKEDIN-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rishavkumar12/)
 &nbsp;&nbsp;
