@@ -1,7 +1,25 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import profilePhoto from "../assets/profile/photo.jpeg";
 import GitHubActivitySection from "./Components/GitHubActivitySection";
-
+import EngineeringMetrics from "./Components/EngineeringMetrics";
+import ProjectSection from "./Components/ProjectSection";
+import ProjectDetailPage from "./Components/ProjectDetailPage";
+import Timeline from "./Components/Timeline";
+import CommandPalette from "./Components/CommandPalette";
+import ContactModal from "./Components/ContactModal";
+import ResumeModal from "./Components/ResumeModal";
+import CredentialModal from "./Components/CredentialModal";
+import ProjectShareModal from "./Components/ProjectShareModal";
+import TerminalModal from "./Components/TerminalModal";
+import RecruiterCardModal from "./Components/RecruiterCardModal";
+import PortfolioAiWidget from "./Components/PortfolioAiWidget";
+import MobileBottomNav from "./Components/MobileBottomNav";
+import Toast from "./Components/Toast";
+import CursorGlow from "./Components/CursorGlow";
+import CursorCat from "./Components/CursorCat";
+import { playSound } from "./utils/soundEffects";
+import { projects } from "./data/projectsData";
+import { Command, FileText, Send, Sparkles, Terminal as TerminalIcon, ShieldCheck, Volume2, VolumeX } from "lucide-react";
 
 const skillsGroups = [
   {
@@ -24,7 +42,7 @@ const skillsGroups = [
   {
     title: "Cloud & DevOps",
     items: [
-      { name: "AWS", iconSrc: "https://cdn.simpleicons.org/amazonaws" },
+      { name: "AWS", iconSrc: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
       { name: "Docker", iconSrc: "https://cdn.simpleicons.org/docker" },
     ],
   },
@@ -34,7 +52,7 @@ const skillsGroups = [
       { name: "Git", iconSrc: "https://cdn.simpleicons.org/git" },
       { name: "GitHub", iconSrc: "https://cdn.simpleicons.org/github" },
       { name: "Linux (Ubuntu)", iconSrc: "https://cdn.simpleicons.org/ubuntu" },
-      { name: "VS Code", iconSrc: "https://cdn.simpleicons.org/visualstudiocode" },
+      { name: "VS Code", iconSrc: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
       { name: "LaTeX", iconSrc: "https://cdn.simpleicons.org/latex" },
       { name: "Postman", iconSrc: "https://cdn.simpleicons.org/postman" },
     ],
@@ -52,340 +70,68 @@ const skillsGroups = [
   },
 ];
 
-const projects = [
+const achievementsData = [
   {
-    slug: "vercel-clone",
-    title: "Vercel Clone",
-    period: "Mar 2026",
-    subtitle: "Full-Stack Deployment Platform",
-    summary:
-      "A Vercel-like deployment platform with automated builds, Docker isolation, AWS integrations, and a dashboard for deployment logs.",
-      description: [
-    "Vercel Clone is a simplified cloud deployment platform inspired by Vercel that automates the deployment of static web applications directly from GitHub repositories. The primary objective of this project was to understand how modern deployment platforms work internally while gaining hands-on experience with cloud services, deployment automation, and DevOps workflows.",
-
-    "The deployment process begins with a React frontend where users submit the GitHub repository URL of their project. The frontend sends the deployment request to the backend through REST APIs.",
-
-    "The backend clones the repository, detects the project, installs dependencies, and executes the appropriate build commands to generate optimized production-ready files inside the build or dist directory.",
-
-    "After a successful build, the backend uploads every generated file to an AWS S3 bucket that serves as the static hosting platform. Rather than performing uploads silently, the backend streams real-time deployment logs to the frontend, allowing users to monitor every deployment step.",
-
-    "During deployment, users can see logs such as 'Uploading index.html', 'Uploaded index.html', 'Uploading style.css', and finally 'Deployment Complete'. This transparency helps users understand exactly what is happening and makes debugging deployment failures much easier.",
-
-    "Once all files are uploaded successfully, the application is served through a custom domain instead of the default S3 website endpoint, providing a cleaner and more production-like deployment experience.",
-
-    "The dashboard also includes a live preview section displaying the deployed project's name, live URL, deployment status, and a button to open the deployed website immediately after deployment completes."
-  ],
-    stack: ["React", "Node.js", "Docker", "AWS", "CI/CD"],
-    highlights: [
-      "Built a real-time build pipeline that reduced deployment from 5+ manual steps to a single automated process.",
-      "Implemented Docker-based deployments supporting multiple isolated containers.",
-      "Integrated AWS ECS, ECR, and S3 for scalable deployment and storage.",
-      "Designed a dashboard for managing projects, deployments, and logs.",
-    ],
-    github: "https://github.com/rishav-026/Vercel-clone",
-    role: "Full-stack developer",
-  },
-
-  {
-    slug: "logintelligence",
-    title: "LogIntelligence",
-    period: "2026",
-    subtitle: "DevOps Log Intelligence Platform",
-    summary:
-      "An AI-powered platform for analyzing and diagnosing production logs with real-time incident reporting.",
-      description: [
-        "The main objective of this project is to reduce the time engineers spend manually investigating production incidents by automatically converting raw production logs into structured incident reports and guided investigation workflows.",
-
-"In modern cloud-native environments, applications are deployed across multiple technologies such as Kubernetes, Docker, PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ, and Spring Boot. During a production outage, these systems generate thousands of log lines. Engineers often have to manually inspect these logs, identify the affected technology, correlate infrastructure metrics, determine the root cause, and decide which commands to execute for troubleshooting. This manual process is time-consuming and error-prone, especially during high-severity incidents.",
-
-"To solve this problem, I built LogIntelligence, which automates the initial incident investigation process.",
-
-"The workflow begins when a user uploads a production log file through the web interface built with Next.js, React, TypeScript, and Tailwind CSS. The frontend sends the log file to a FastAPI backend through a REST API.",
-
-"The first backend component is the Regex Parser. The parser reads the uploaded log and extracts structured information such as exception names, stack traces, CPU usage, memory usage, latency, HTTP status codes, exit codes, Kubernetes metadata, Docker container details, namespaces, ports, and technology-specific keywords. The parser converts unstructured log data into structured metadata that can be processed by the remaining components.",
-
-"After parsing, the structured metadata is passed to the Technology Detection Engine. This module automatically identifies the technologies involved in the incident. For example, if the log contains keywords like pg_isready, 5432, or PostgreSQL, the system detects PostgreSQL. Similarly, it identifies Redis, MongoDB, Kafka, RabbitMQ, Docker, Kubernetes, Spring Boot, FastAPI, and other supported technologies.",
-
-"Once the technology is detected, the metadata is sent to the Deterministic Rule Engine, which is one of the core components of the project. The Rule Engine evaluates the extracted evidence using predefined rules instead of relying on AI for operational decisions. It determines the incident severity, calculates a confidence score, identifies infrastructure patterns such as memory exhaustion or connection failures, and selects the appropriate Technology Playbook.",
-
-"The Technology Playbooks contain manually designed operational knowledge for each supported technology. Each playbook includes deterministic investigation commands, expected command outputs, recovery procedures, verification checklists, prevention strategies, and recommended configuration patches. For example, if the detected technology is PostgreSQL, the playbook returns commands such as pg_isready and SELECT * FROM pg_stat_activity. If the technology is Redis, the playbook returns commands like redis-cli INFO memory and Redis-specific recovery procedures. Because these playbooks are deterministic, the platform always generates technology-appropriate operational guidance and avoids hallucinated or unsafe commands.",
-
-"The project also integrates LangChain and Ollama running a local Llama 3 model. Unlike many AI-based log analysis systems, the language model is not responsible for generating commands, investigation steps, or recovery procedures. Instead, LangChain orchestrates the interaction with the local language model, providing the extracted evidence and deterministic findings as context. The language model is used only to generate natural-language sections such as the Executive Summary, Incident Summary, Business Impact, and technical explanations. This separation ensures that AI improves readability without influencing operational decisions.",
-
-"Before the final report is generated, all outputs pass through a Validation Layer. The validation layer ensures that operational commands, investigation steps, and verification procedures originate only from the deterministic playbooks. If the language model produces any operational suggestion that conflicts with the selected playbook, the deterministic data takes precedence. This hybrid architecture significantly reduces hallucinations while still benefiting from AI-generated explanations.",
-
-"After validation, the backend combines all deterministic information and AI-generated narratives into a single structured JSON object. This JSON contains incident metadata, executive summary, root cause analysis, evidence board, infrastructure metrics, application stack details, investigation workspace, recovery procedures, verification checklist, prevention strategies, and recommended configuration patches.",
-
-"The frontend then renders this JSON into an enterprise-style Production Incident Report. One of the major features is the Interactive Investigation Workspace, which provides a guided troubleshooting workflow. Engineers can review technology-specific commands, expected outputs, evidence, findings, and recommended next steps. Importantly, these commands are never executed by the platform—they are displayed as deterministic guidance derived from the technology playbooks.",
-      ],
-    stack: [
-  "Python",
-  "FastAPI",
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Tailwind CSS",
-  "SQLite",
-  "LangChain",
-  "Ollama",
-],
-
-highlights: [
-  "Transforms raw production logs into structured incident reports using deterministic log analysis.",
-  "Automatically detects technologies including PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ, Docker, and Kubernetes.",
-  "Generates guided investigation workflows, recovery steps, verification checklists, and configuration patches through technology-specific playbooks.",
-],
-
-github: "https://github.com/rishav-026/LogIntelligence",
-
-role: "Full Stack Developer & Backend Architect",
-  },
-
-  {
-    slug: "infraledger",
-    title: "InfraLedger",
-    period: "Mar 2026",
-    subtitle: "Infrastructure Transparency Platform",
-    summary:
-      "A full-stack transparency platform with role-based dashboards, blockchain-backed records, and IPFS document verification.",
-      
-      description: [
-  "InfraLedger is a blockchain-powered infrastructure monitoring platform designed to improve transparency, accountability, and trust in public infrastructure projects. The platform prevents corruption and fund misuse by creating an immutable record of project activities such as fund releases, milestone approvals, project updates, and supporting evidence.",
-
-  "The idea behind the project came from the lack of transparency in government infrastructure projects, where citizens often have little visibility into project progress or public fund utilization. Instead of relying on traditional centralized databases, InfraLedger combines blockchain technology with AI-powered analytics to create a secure and tamper-resistant monitoring platform.",
-
-  "The platform is built using React for the frontend, Node.js and Express with TypeScript for the backend, PostgreSQL managed through Prisma ORM, Polygon blockchain integration using Hardhat and Ethers.js, IPFS via Pinata for decentralized storage, and a local AI-powered risk analysis engine.",
-
-  "InfraLedger supports multiple user roles including Government Officials, Contractors, Citizens, Checkers, and Approvers. Contractors create projects and upload progress updates with supporting evidence, government officials monitor projects and approve milestones, while citizens can transparently track project progress and verify how public funds are being utilized.",
-
-  "A key feature of the platform is its milestone-based fund release mechanism. Instead of releasing the complete budget at once, funds are released incrementally after project milestones are approved. Every release request passes through a Maker–Checker–Approver workflow, ensuring multiple levels of verification before transactions are finalized.",
-
-  "To guarantee data integrity, every important transaction such as project creation, milestone approvals, and fund releases is permanently recorded on the Polygon blockchain. Large files like images and project documents are stored on IPFS through Pinata, while only the immutable content hash is written to the blockchain, reducing storage costs while preserving verifiability.",
-
-  "The AI-powered Risk Analysis Engine continuously evaluates projects using parameters such as project completion percentage, released funds, milestone progress, delays, and other indicators. Based on these inputs, the system predicts project risk levels and generates explainable insights that help officials identify potentially risky projects before major issues arise.",
-
-  "The dashboard provides real-time visibility into project progress, budgets, milestones, approvals, blockchain transaction history, AI-generated risk scores, and uploaded evidence. Role-based authentication ensures every user can only access features relevant to their responsibilities.",
-
-  "Developing InfraLedger provided hands-on experience with blockchain development, smart contracts, decentralized storage, full-stack application development, authentication, role-based authorization, AI integration, database management, and secure cloud deployment. One of the biggest challenges was synchronizing communication between the React frontend, Express backend, PostgreSQL database, Polygon smart contracts, and IPFS while maintaining consistency and security.",
-
-  "Although currently implemented as a prototype, InfraLedger demonstrates how blockchain and artificial intelligence can improve transparency and accountability in public infrastructure management. Future enhancements include integrating real government datasets, supporting multiple blockchain networks, implementing digital identity verification, adding predictive analytics, generating AI-powered audit reports, and integrating GIS-based project tracking."
-],
-    stack: ["React", "Node.js", "Express", "TypeScript", "Prisma", "Polygon", "IPFS"],
-    highlights: [
-      "Supported 3 user roles: government, contractors, and citizens with role-based dashboards.",
-      "Stored 100+ transaction records on Polygon to keep infrastructure records tamper-resistant.",
-      "Handled 50+ project documents on IPFS with CID-based verification.",
-      "Designed a risk scoring system analyzing 5+ parameters to detect fund-usage anomalies.",
-    ],
-    github: "https://github.com/rishav-026/INFRA-LEDGAR",
-    role: "Full-stack developer",
+    title: "Winner (2nd Place) - Srujana Hackathon 2025",
+    issuer: "Srujana State Hackathon",
+    date: "Jul 2025",
+    icon: "🏆",
+    description: "Secured 2nd Place out of 100+ competing teams for building CivicSim, an AI-powered civic transparency platform using FastAPI, Gemini AI, OCR, and data.gov.in public analytics.",
+    skills: ["Python", "FastAPI", "Gemini AI", "OCR", "Data Analytics"],
   },
   {
-    slug: "civic-sim",
-    title: "Civic Sim",
-    period: "Jul 2025",
-    subtitle: "AI-Powered Civic Transparency Platform",
-    summary:
-      "An AI platform for civic transparency with OCR, ML, and dashboards for tracking data fields and anomaly detection.",
-      description: [
-  "CivicSim is an AI-powered civic transparency platform developed to improve accountability in government projects and help detect corruption using Artificial Intelligence. The platform enables citizens and government authorities to verify official documents, monitor public fund utilization, and identify suspicious activities through AI-driven analysis.",
-
-  "The project was built with a React frontend and a FastAPI backend written in Python. Users can upload government-related documents through the web interface, while the backend processes requests and integrates with Google Gemini AI to determine whether uploaded documents are authentic or fraudulent.",
-
-  "The AI-powered document verification system not only classifies documents as genuine or fake but also generates confidence scores and explainable reasoning for its predictions. This provides greater transparency and helps users understand why a document has been flagged as suspicious.",
-
-  "To enhance transparency, the platform integrates with official government APIs from data.gov.in to retrieve real-time information about government schemes, fund allocation, and public expenditure. The retrieved data is compared with uploaded documents to identify inconsistencies and generate corruption risk scores.",
-
-  "The platform also analyzes multiple parameters such as missing information, suspicious keywords, unusual spending patterns, and data inconsistencies to identify potential corruption indicators. These AI-generated insights assist authorities in detecting irregularities at an early stage.",
-
-  "One of the major features of CivicSim is the Government Transparency Dashboard, which presents healthcare budget allocation, ministry-wise expenditure, project progress, and public fund utilization through interactive charts and visual analytics. The dashboard enables users to easily monitor government performance and identify projects that require further investigation.",
-
-  "Project information and analysis results are stored using SQLite, while Docker is used to containerize the application, ensuring consistent deployment across different development and production environments.",
-
-  "Developing CivicSim provided hands-on experience with React, FastAPI, Python, Google Gemini AI, REST APIs, Docker, government API integration, data visualization, and AI-powered document verification. The project demonstrated how Artificial Intelligence combined with real-time public datasets can improve transparency, strengthen accountability, and build greater public trust in government systems."
-],
-    stack: ["Python", "React", "FastAPI", "OCR", "ML"],
-    highlights: [
-      "Led development of an AI platform achieving 90%+ OCR accuracy on 100+ documents.",
-      "Built real-time dashboards tracking 10+ data fields for fund allocation and anomaly detection.",
-      "Processed multiple datasets using ML models to identify corruption patterns.",
-      "Winner of Srujana Hackathon 2025.",
-    ],
-    github: "https://github.com/Rishabh-afk-beep/Civic-Sim",
-    role: "Project lead",
+    title: "Hackathon Winner — Sarkaar Sarthi AI Platform",
+    issuer: "State Hackathon Winner",
+    date: "2025",
+    icon: "🏆",
+    description: "Won Hackathon award for building Sarkaar Sarthi, an AI-powered multilingual government scheme discovery & healthcare navigation platform with document OCR verification.",
+    skills: ["AI & LLMs", "Multilingual NLP", "FastAPI", "OCR", "React"],
   },
   {
-    slug: "sarkaar-sarthi",
-    title: "Sarkaar Sarthi",
-    period: "2026",
-    subtitle: "Citizen Services Workflow Platform",
-    summary:
-      "A citizen-service assistant that guides users through schemes, applications, document checklists, and status tracking.",
-      description: [
-  "Sarkaar Saathi is an AI-powered government schemes assistance platform designed to simplify access to Indian government welfare schemes. The platform helps citizens discover, understand, and apply for government schemes by allowing them to ask questions in both text and voice across multiple Indian languages.",
-
-  "The application is built with a React frontend and a FastAPI backend. Users interact with an AI chatbot that processes their queries using a Retrieval-Augmented Generation (RAG) architecture. Instead of relying solely on a Large Language Model, the system first retrieves relevant information from official government scheme documents stored in a vector database before generating responses.",
-
-  "The backend converts uploaded government scheme documents into vector embeddings using a vector database such as FAISS or Pinecone. When a user submits a query, the most relevant document sections are retrieved and passed to an AI model like Google Gemini or Ollama, enabling the chatbot to provide accurate, context-aware answers based on official sources.",
-
-  "One of the key features of Sarkaar Saathi is its multilingual support. Citizens can interact with the platform using both text and voice in more than ten Indian languages, making government information accessible to users from diverse linguistic backgrounds.",
-
-  "The platform also includes an Admin Dashboard where administrators can upload new government scheme PDF documents. These documents are automatically processed, chunked, converted into vector embeddings, and stored in the vector database, ensuring that newly published schemes become immediately searchable by the AI assistant.",
-
-  "MongoDB is used to store user information, chatbot interactions, and platform analytics, while Docker containerizes the application to provide a consistent deployment environment across development and production systems.",
-
-  "Building Sarkaar Saathi provided hands-on experience with React, FastAPI, Retrieval-Augmented Generation (RAG), vector databases, AI model integration, MongoDB, Docker, REST APIs, multilingual voice processing, and document embedding pipelines. The project demonstrated how modern AI assistants combine semantic search with Large Language Models to deliver reliable, explainable, and up-to-date responses for real-world government services.",
-
-  "Although currently implemented as a prototype, Sarkaar Saathi has the potential to become a comprehensive digital assistant for government services. Future enhancements include direct integration with official government portals, personalized scheme recommendations based on user profiles, application status tracking, OCR-based document verification, and AI-powered guidance throughout the complete application process."
-],
-    stack: ["React", "Node.js", "Express", "MySQL"],
-    highlights: [
-      "Organizes government service flows into a clean step-by-step user journey.",
-      "Tracks application status, required documents, and follow-up actions in one dashboard.",
-      "Built for the same clarity-first UX style you use across your portfolio work.",
-    ],
-    github: "https://github.com/rishav-026/SARKAAR-SAARTHI",
-    role: "Full-stack builder",
+    title: "150+ DSA Problems Solved",
+    issuer: "LeetCode (@rishav1kr)",
+    icon: "💻",
+    description: "Solved 150+ algorithmic problem-solving challenges in Java covering Arrays, Trees, Graphs, Dynamic Programming, and System Optimization.",
+    skills: ["Java", "Data Structures", "Algorithms", "Problem Solving"],
+    link: "https://leetcode.com/u/rishav1kr/",
   },
   {
-    slug: "devops-incident-analyzer",
-    title: "DevOps Incident Analyzer",
-    period: "2026",
-    subtitle: "Incident Triage & Root Cause Platform",
-    summary:
-      "A DevOps tool for ingesting logs, clustering incidents, surfacing probable causes, and suggesting remediation steps.",
-    stack: ["Python", "Node.js", "AWS", "Docker", "GitHub"],
-    highlights: [
-      "Helps sort incidents by severity and likely blast radius.",
-      "Turns log noise into structured summaries for faster triage.",
-      "Designed for teams that need quick root-cause visibility during active outages.",
-    ],
-    github: "https://github.com/rishav-026/Gamified-Coding_platform",
-    role: "Systems-focused developer",
-  },
-  {
-    slug: "invoice-processing-tool",
-    title: "Invoice Processing Tool",
-    period: "2026",
-    subtitle: "OCR Invoice Automation",
-    summary:
-      "An OCR-driven pipeline for extracting invoice fields, validating line items, and preparing structured outputs for finance systems.",
-      description: [
-  "Invoice Processing Tool is a full-stack document automation application designed to extract structured information from both typed and handwritten invoices. The platform automates invoice processing using Optical Character Recognition (OCR), reducing manual data entry while improving speed and accuracy for financial workflows.",
-
-  "The application consists of a React frontend and a Flask backend developed in Python. Users can upload invoice images through the web interface, where the backend processes the documents using either Tesseract OCR or Google Cloud Vision API depending on the availability and quality of the input.",
-
-  "The OCR pipeline extracts raw text from uploaded invoices and automatically identifies important business information including invoice number, invoice date, vendor details, customer information, line items, subtotal, tax amount, and the final payable amount. The extracted data is converted into a structured format that can be easily consumed by downstream business applications.",
-
-  "To improve reliability, the platform implements a hybrid OCR approach. Google Cloud Vision API is used for high-accuracy cloud-based text recognition, while Tesseract OCR serves as a fallback mechanism whenever cloud processing is unavailable or encounters an error. This ensures uninterrupted invoice processing across different deployment environments.",
-
-  "The backend exposes REST APIs that communicate with the React frontend and supports secure file uploads through Flask. Uploaded invoice images are temporarily stored, processed by the OCR engine, and the extracted results are returned to the frontend for visualization and validation before further processing.",
-
-  "The modular architecture allows the OCR engine, document parser, and machine learning components to operate independently, making it easier to extend the platform with advanced document understanding models such as Donut or LayoutLM for more complex invoice formats.",
-
-  "Building this project provided hands-on experience with Python, Flask, React, REST APIs, Optical Character Recognition (OCR), Tesseract OCR, Google Cloud Vision API, Flask-CORS, document parsing, file upload handling, and full-stack application development. It also strengthened my understanding of intelligent document processing and automation workflows.",
-
-  "Although currently implemented as an invoice processing solution, the platform can be extended into a complete Intelligent Document Processing (IDP) system by integrating AI-based field validation, receipt processing, purchase order matching, ERP integration, document classification, fraud detection, and automated accounting workflows for enterprise environments."
-],
-    stack: ["Python", "FastAPI", "OCR", "MySQL"],
-    highlights: [
-      "Extracts vendor, invoice, date, and amount fields from document scans.",
-      "Validates rows and line items before export to downstream systems.",
-      "Built to reduce manual data entry in billing workflows.",
-    ],
-    github: "https://github.com/rishav-026/Invoice_Processing",
-    role: "Automation builder",
-  },
-  {
-    slug: "career-prediction",
-    title: "Career Prediction",
-    period: "2026",
-    subtitle: "Skill-to-Career Guidance System",
-    summary:
-      "A lightweight guidance tool that maps profiles and skills to career paths, strengths, and next-step recommendations.",
-      description: [
-  "Career Prediction is a full-stack machine learning application developed during the HackMarch Hackathon at KLE Society. The platform predicts a student's most suitable future career path by analyzing academic performance, behavioral traits, technical skills, and personal attributes using an AI-powered machine learning model.",
-
-  "The application consists of a lightweight frontend built with HTML, CSS, and JavaScript, while the backend is developed in Python. Users provide information such as academic scores, technical proficiency, extracurricular participation, leadership experience, communication skills, and other personal characteristics through an interactive web interface.",
-
-  "The backend preprocesses the collected data by handling missing values, performing feature engineering, converting data types, and balancing the dataset using undersampling techniques. A new feature called 'Tech Level' is derived from users' technical proficiency to improve the overall predictive performance of the model.",
-
-  "The machine learning model is built using AutoGluon's TabularPredictor, which automatically trains and evaluates multiple algorithms to identify the best-performing model. After training, the model achieved more than 85% prediction accuracy and was exported along with all preprocessing artifacts for future deployment.",
-
-  "Once a user submits the input form, the backend processes the data through the trained model and predicts the most suitable career path. Possible predictions include Engineer, Doctor, Entrepreneur, Researcher, Artist, and several other professional fields based on the user's profile.",
-
-  "The project stores trained models, preprocessing artifacts, and feature metadata to ensure consistent predictions during deployment. The modular architecture also allows the machine learning model to be retrained with larger datasets without requiring changes to the frontend.",
-
-  "Developing this project provided hands-on experience with Python, AutoGluon, pandas, scikit-learn, feature engineering, data preprocessing, class balancing, model evaluation, machine learning deployment, and full-stack application development. It also demonstrated how AutoML techniques can simplify model selection while maintaining high prediction accuracy.",
-
-  "Although currently developed as a hackathon prototype, the platform can be extended into a complete AI-based career guidance system by integrating psychometric assessments, resume analysis, skill-gap recommendations, personalized learning roadmaps, real-time job market insights, and university admission guidance to provide comprehensive career counseling."
-],
-    stack: ["Python", "React", "ML", "Node.js"],
-    highlights: [
-      "Matches skills to possible career paths with explainable recommendations.",
-      "Highlights strengths, gaps, and suggested learning milestones.",
-      "Useful for student guidance and early-career planning.",
-    ],
-    github: "https://github.com/rishav-026/Career-Predictor-Project",
-    role: "ML-assisted developer",
-  },
-
-
-  {
-    slug: "career-prediction",
-    title: "Career Prediction",
-    period: "2026",
-    subtitle: "Skill-to-Career Guidance System",
-    summary:
-      "A lightweight guidance tool that maps profiles and skills to career paths, strengths, and next-step recommendations.",
-      description: [
-        "My project is called LogIntelligence. It is an AI-powered DevOps Log Intelligence and Incident Diagnostic Platform. The main idea behind this project is to reduce the time engineers spend analyzing production logs during system failures.",
-
-"In a real production environment, whenever an application crashes or becomes slow, it generates thousands of log lines. Reading all those logs manually is difficult and takes a lot of time. So, I built a platform that automatically analyzes the logs and generates a structured incident report.",
-
-'The workflow starts when the user uploads a production log file. The backend, which is built using FastAPI, first uses a Regex Parser to extract useful information like exception names, CPU usage, memory usage, HTTP status codes, latency, exit codes, and other infrastructure details.',
-
-'After extracting the information, the system automatically detects which technologies are present in the log, such as PostgreSQL, Redis, MongoDB, Kafka, RabbitMQ, Docker, Kubernetes, or Spring Boot.',
-
-'Once the technologies are identified, the Rule Engine selects the correct Technology Playbook. I have created these playbooks manually. Each playbook contains technology-specific investigation commands, recovery steps, verification checklists, prevention strategies, and configuration patches. This ensures that the commands shown in the report are always correct for the detected technology.',
-
-'The project also uses LangChain and Ollama (Llama 3). Their job is not to generate commands or recovery steps. Instead, they generate human-readable sections like the Executive Summary, Incident Summary, Business Impact, and technical explanations, making the report easier to understand.',
-
-'After that, a Validation Layer combines the deterministic data from the Rule Engine and the AI-generated explanations into a structured JSON response. Finally, the React frontend displays everything as a professional Production Incident Report along with an Interactive Investigation Workspace, where engineers can follow the investigation commands step by step.',
-
-'The biggest design decision in my project is that AI never decides operational commands. All investigation commands, recovery procedures, and verification steps come from deterministic playbooks that I created, while AI is used only to explain the incident in simple language. This reduces the chances of AI hallucinating incorrect commands and makes the system more reliable for production use.',
-      ],
-    stack: ["Python", "React", "ML", "Node.js"],
-    highlights: [
-      "Matches skills to possible career paths with explainable recommendations.",
-      "Highlights strengths, gaps, and suggested learning milestones.",
-      "Useful for student guidance and early-career planning.",
-    ],
-    github: "https://github.com/rishav-026/Career-Predictor-Project",
-    role: "ML-assisted developer",
+    title: "8+ Production & AI Projects Built",
+    issuer: "GitHub Portfolio Showcase",
+    icon: "🚀",
+    description: "Engineered 8+ full-stack, AI, and cloud-native software projects with Docker isolation, AWS deployment, and RAG architectures.",
+    skills: ["React", "Node.js", "Docker", "AWS", "FastAPI"],
   },
 ];
 
-
-const achievements = [
-  "🏆 Winner - Srujana Hackathon 2025",
-  "🥉 3rd Place - ImpactX'25",
-  "💻 Solved 150+ DSA Problems in Java",
-  "🚀 Built 8+ Full Stack & AI Projects",
-];
-
-const certificates = [
-  "Introduction to Prompt Engineering & Generative AI - LinkedIn Learning",
-  "AI Foundation Associates - Oracle",
-  "Introduction to LLM  - LinkedIn Learning",
-];
-
-const education = [
-  "Acharya Institute of Technology, Bangalore",
-  "B.E. in Information Science and Engineering",
-  "CGPA: 8.2 | 2023 - 2027 (Expected)",
-  "Class 12, Vidya Niketan School, Patna - 66%",
-  "Class 10, Vidya Niketan School, Patna - 84%",
+const certificatesData = [
+  {
+    title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+    issuer: "Oracle University",
+    date: "Oct 2025",
+    icon: "🎓",
+    description: "Certified by Oracle University in AI & Machine Learning concepts, Large Language Models, Cloud Infrastructure, and AI service architecture.",
+    skills: ["Oracle Cloud", "Artificial Intelligence", "LLMs", "Machine Learning"],
+    link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=A252166271A30DD15B38D1F80919C4C0FE40E2BF840FC6E1101C9D88E49AADCF",
+  },
+  {
+    title: "Introduction to Prompt Engineering & Generative AI",
+    issuer: "LinkedIn Learning",
+    date: "Sep 2025",
+    icon: "📜",
+    description: "Mastered prompt engineering techniques, zero-shot/few-shot prompting, RAG architectures, and fine-tuning AI responses.",
+    skills: ["Generative AI", "Prompt Engineering", "LLM Fine-tuning"],
+    link: "https://www.linkedin.com/learning/certificates/e7aeea83fc41b40cca3f2fb43c361be237cc228858036b43ca1d05423566e39b?trk=share_certificate",
+  },
+  {
+    title: "Introduction to LLM - LinkedIn Learning",
+    issuer: "LinkedIn Learning",
+    date: "2025",
+    icon: "🤖",
+    description: "Verified understanding of Large Language Model architectures, tokenization, embeddings, and generative AI capabilities.",
+    skills: ["LLM", "Generative AI", "Transformers"],
+    link: "https://www.linkedin.com/in/rishavkumar12/overlay/Certifications/1810675348/treasury/?profileId=ACoAADiqoAMB9qAPpn_beHJt1WfCAQWYdvvBh-8",
+  },
 ];
 
 const profileLinks = [
@@ -395,14 +141,25 @@ const profileLinks = [
   { label: "Phone", href: "tel:+916204627879" },
 ];
 
-const githubContributionsApi = "https://github-contributions-api.jogruber.de/v4/rishav-026";
-const githubProfileUrl = "https://github.com/rishav-026";
 const heroRoles = ["Full Stack Developer", "Web Developer", "AI Engineer"];
 
 function App() {
   const [time, setTime] = useState("");
   const [route, setRoute] = useState(getRouteFromHash);
   const [heroRoleIndex, setHeroRoleIndex] = useState(0);
+
+  // Modals & Popups State
+  const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isRecruiterCardOpen, setIsRecruiterCardOpen] = useState(false);
+  const [isAiWidgetOpen, setIsAiWidgetOpen] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [selectedCredential, setSelectedCredential] = useState(null);
+  const [selectedShareProject, setSelectedShareProject] = useState(null);
+  const [toast, setToast] = useState(null);
+
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") return "dark";
     return window.localStorage.getItem("portfolio-theme") || "dark";
@@ -423,6 +180,18 @@ function App() {
     return () => window.clearInterval(intervalId);
   }, []);
 
+  // Global Click Sound Effect Listener
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      if (soundEnabled) {
+        playSound("click", true);
+      }
+    };
+
+    window.addEventListener("click", handleGlobalClick);
+    return () => window.removeEventListener("click", handleGlobalClick);
+  }, [soundEnabled]);
+
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setHeroRoleIndex((currentIndex) => (currentIndex + 1) % heroRoles.length);
@@ -433,11 +202,30 @@ function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     window.localStorage.setItem("portfolio-theme", theme);
-    const syncRoute = () => setRoute(getRouteFromHash());
+  }, [theme]);
+
+  // Dedicated Route Sync Listener
+  useEffect(() => {
+    const syncRoute = () => {
+      setRoute(getRouteFromHash());
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    };
     syncRoute();
     window.addEventListener("hashchange", syncRoute);
     return () => window.removeEventListener("hashchange", syncRoute);
-  }, [theme]);
+  }, []);
+
+  // Command Palette Shortcut Listener (Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCommandOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const selectedProject = useMemo(() => {
     if (route.type !== "project") return null;
@@ -449,118 +237,342 @@ function App() {
       document.title = "About Rishav Kumar | Portfolio";
       return;
     }
-
-    document.title = selectedProject ? `${selectedProject.title} | Rishav Kumar` : "Rishav Kumar | Portfolio";
+    document.title = selectedProject
+      ? `${selectedProject.title} | Rishav Kumar`
+      : "Rishav Kumar | Portfolio";
   }, [route.type, selectedProject]);
 
-  const toggleTheme = () => setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  const toggleTheme = () => setTheme((curr) => (curr === "dark" ? "light" : "dark"));
 
-  if (route.type === "project" && selectedProject) {
-    return (
-      <ProjectDetailPage
-        project={selectedProject}
-        theme={theme}
+  const showToastNotification = (data) => {
+    setToast(data);
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  return (
+    <>
+      <CursorGlow theme={theme} />
+      <CursorCat />
+
+      <CommandPalette
+        isOpen={isCommandOpen}
+        onClose={() => setIsCommandOpen(false)}
         onToggleTheme={toggleTheme}
-        onBack={() => {
-          window.location.hash = "";
-        }}
+        theme={theme}
+        onOpenContact={() => setIsContactOpen(true)}
       />
-    );
-  }
 
-  if (route.type === "about") {
-    return <AboutPage theme={theme} onToggleTheme={toggleTheme} onBack={() => { window.location.hash = ""; }} />;
-  }
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+        onShowToast={showToastNotification}
+      />
 
-  return <PortfolioHome time={time} theme={theme} onToggleTheme={toggleTheme} heroRole={heroRoles[heroRoleIndex]} />;
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+        onShowToast={showToastNotification}
+      />
+
+      <TerminalModal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+        onOpenContact={() => setIsContactOpen(true)}
+      />
+
+      <RecruiterCardModal
+        isOpen={isRecruiterCardOpen}
+        onClose={() => setIsRecruiterCardOpen(false)}
+        onShowToast={showToastNotification}
+        onOpenResume={() => setIsResumeOpen(true)}
+      />
+
+      <PortfolioAiWidget
+        isOpen={isAiWidgetOpen}
+        onClose={() => setIsAiWidgetOpen(false)}
+        onOpenContact={() => setIsContactOpen(true)}
+      />
+
+      <CredentialModal
+        credential={selectedCredential}
+        onClose={() => setSelectedCredential(null)}
+      />
+
+      <ProjectShareModal
+        project={selectedShareProject}
+        onClose={() => setSelectedShareProject(null)}
+        onShowToast={showToastNotification}
+      />
+
+      <Toast toast={toast} onClose={() => setToast(null)} />
+
+      {route.type === "project" && selectedProject ? (
+        <ProjectDetailPage
+          project={selectedProject}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onOpenContact={() => setIsContactOpen(true)}
+          onOpenShare={(proj) => setSelectedShareProject(proj)}
+          onBack={() => {
+            window.location.hash = "";
+          }}
+        />
+      ) : route.type === "about" ? (
+        <AboutPage
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onOpenContact={() => setIsContactOpen(true)}
+          onOpenResume={() => setIsResumeOpen(true)}
+          onBack={() => {
+            window.location.hash = "";
+          }}
+        />
+      ) : (
+        <PortfolioHome
+          time={time}
+          theme={theme}
+          onToggleTheme={() => {
+            playSound("pop", soundEnabled);
+            toggleTheme();
+          }}
+          soundEnabled={soundEnabled}
+          onToggleSound={() => {
+            const next = !soundEnabled;
+            setSoundEnabled(next);
+            if (next) playSound("success", true);
+          }}
+          heroRole={heroRoles[heroRoleIndex]}
+          onOpenCommand={() => {
+            playSound("click", soundEnabled);
+            setIsCommandOpen(true);
+          }}
+          onOpenContact={() => {
+            playSound("click", soundEnabled);
+            setIsContactOpen(true);
+          }}
+          onOpenResume={() => {
+            playSound("click", soundEnabled);
+            setIsResumeOpen(true);
+          }}
+          onOpenTerminal={() => {
+            playSound("terminal", soundEnabled);
+            setIsTerminalOpen(true);
+          }}
+          onOpenRecruiterCard={() => {
+            playSound("pop", soundEnabled);
+            setIsRecruiterCardOpen(true);
+          }}
+          onOpenAiWidget={() => {
+            playSound("pop", soundEnabled);
+            setIsAiWidgetOpen(true);
+          }}
+          onOpenCredential={(cred) => {
+            playSound("click", soundEnabled);
+            setSelectedCredential(cred);
+          }}
+          onOpenShare={(proj) => {
+            playSound("click", soundEnabled);
+            setSelectedShareProject(proj);
+          }}
+        />
+      )}
+    </>
+  );
 }
 
-function PortfolioHome({ time, theme, onToggleTheme, heroRole }) {
+function PortfolioHome({
+  time,
+  theme,
+  onToggleTheme,
+  soundEnabled,
+  onToggleSound,
+  heroRole,
+  onOpenCommand,
+  onOpenContact,
+  onOpenResume,
+  onOpenTerminal,
+  onOpenRecruiterCard,
+  onOpenAiWidget,
+  onOpenCredential,
+  onOpenShare,
+}) {
   return (
     <div className="min-h-screen bg-transparent text-[var(--color-text)] transition-colors duration-300">
       <div className="pointer-events-none fixed inset-0 border-t-[10px] border-[var(--color-topbar)]" />
       <div className="pointer-events-none fixed inset-y-0 right-0 w-[32vw] bg-[radial-gradient(circle_at_top,var(--color-right-glow),transparent_60%)]" />
 
-      <main className="mx-auto w-[min(1320px,calc(100%-32px))] pb-16 pt-14 sm:pt-20">
-        <header className="mb-10 flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-          <div className="min-w-0 flex-1">
-            <h1 className="max-w-[980px] text-[2.35rem] leading-[0.94] font-extrabold tracking-[-0.06em] sm:text-[3.9rem] xl:text-[4.2rem] 2xl:text-[4.45rem]">
-              <span className="whitespace-nowrap">Hi, I&apos;m Rishav — </span>
-              <span key={heroRole} className="role-swap text-[var(--color-title-muted)] transition-colors duration-300">{heroRole}</span>
-            </h1>
+      <main className="mx-auto w-[min(1320px,calc(100%-32px))] pb-16 pt-12 sm:pt-16">
+        {/* Navigation Top Bar */}
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          {/* Availability Badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-extrabold text-emerald-400 backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span>Open for Full-Stack, Cloud & AI Engineering Roles (Bengaluru / Remote)</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
+          {/* Header Action Controls */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            {/* Terminal CLI Easter Egg Trigger */}
+            <button
+              onClick={onOpenTerminal}
+              className="inline-flex items-center gap-2 rounded-2xl border border-yellow-400/50 bg-yellow-400/10 px-4 py-2.5 text-xs font-mono font-extrabold text-yellow-400 shadow-[0_0_20px_rgba(234,179,8,0.2)] transition hover:-translate-y-0.5 hover:bg-yellow-400/20"
+            >
+              <TerminalIcon className="h-4 w-4 text-yellow-400" />
+              <span>RISHAV_TERM.EXE</span>
+            </button>
+
+            {/* Command Palette Button */}
+            <button
+              onClick={onOpenCommand}
+              className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2.5 text-xs font-bold text-[var(--color-text)] shadow-md transition hover:-translate-y-0.5 hover:border-emerald-500/40"
+            >
+              <Command className="h-4 w-4 text-emerald-400" />
+              <span>Search</span>
+              <kbd className="rounded-md bg-[var(--color-card-soft-strong)] px-1.5 py-0.5 text-[10px] font-mono">
+                ⌘K
+              </kbd>
+            </button>
+
+            {/* In-Browser Resume Modal Trigger */}
+            <button
+              onClick={onOpenResume}
+              className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2.5 text-xs font-bold text-[var(--color-text)] shadow-md transition hover:-translate-y-0.5"
+            >
+              <FileText className="h-4 w-4 text-amber-400" />
+              <span>Resume</span>
+            </button>
+
+            {/* Recruiter Card Trigger */}
+            <button
+              onClick={onOpenRecruiterCard}
+              className="inline-flex items-center gap-2 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-2.5 text-xs font-extrabold text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)] transition hover:-translate-y-0.5 hover:bg-emerald-500/20"
+            >
+              <span>📱 QR & Cheat Sheet</span>
+            </button>
+
+            {/* Sound Effects Toggle Button */}
+            <button
+              type="button"
+              onClick={onToggleSound}
+              className={`grid h-10 w-10 place-items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] transition hover:-translate-y-0.5 ${
+                soundEnabled ? "text-emerald-400 border-emerald-500/30" : "text-[var(--color-section-muted)]"
+              }`}
+              title={soundEnabled ? "Mute Developer Sound Effects" : "Enable Developer Sound Effects"}
+            >
+              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+            </button>
+
+            {/* Theme Toggle Button */}
             <button
               type="button"
               onClick={onToggleTheme}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card-soft)] text-[var(--color-text)] transition hover:-translate-y-0.5"
-              aria-label="Toggle light and dark theme"
+              className="grid h-10 w-10 place-items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] transition hover:-translate-y-0.5"
+              aria-label="Toggle theme"
             >
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
             </button>
           </div>
+        </div>
+
+        {/* Headline Header */}
+        <header className="mb-12">
+          <h1 className="text-[2.35rem] leading-[1.05] font-extrabold tracking-[-0.06em] sm:text-[3.9rem] xl:text-[4.5rem]">
+            <span>Hi, I&apos;m Rishav — </span>
+            <span
+              key={heroRole}
+              className="role-swap bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent transition-all duration-300 font-extrabold drop-shadow-sm inline-block"
+            >
+              {heroRole}
+            </span>
+          </h1>
         </header>
 
+        {/* Hero Section */}
         <section className="grid gap-5 xl:grid-cols-[1.95fr_0.88fr]">
-          <article className="rounded-[30px] border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-[var(--shadow-card)] transition-colors duration-300 sm:p-7">
+          <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-6 sm:p-8 shadow-[var(--shadow-card)] transition-colors duration-300 relative overflow-hidden">
+            {/* Background Glow Overlay */}
+            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
+
             <div className="mb-8 flex items-start justify-between">
-              <img className="h-44 w-44 rounded-[26px] object-cover object-top" src={profilePhoto} alt="Rishav Kumar avatar" />
-              <div className="mt-3 text-[var(--color-icon-strong)] transition-colors duration-300"><SparkIcon /></div>
+              {/* Profile Image with Glowing Gradient Halo Ring */}
+              <div className="relative group">
+                <div className="absolute -inset-1 rounded-[30px] bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 opacity-75 blur-md transition duration-500 group-hover:opacity-100 group-hover:blur-lg" />
+                <img
+                  className="relative h-44 w-44 rounded-[26px] object-cover object-top border-2 border-white/20 shadow-2xl transition duration-300 group-hover:scale-[1.02]"
+                  src={profilePhoto}
+                  alt="Rishav Kumar avatar"
+                />
+              </div>
+
+              <div className="mt-3 text-emerald-400 animate-pulse">
+                <SparkIcon />
+              </div>
             </div>
 
-            <h2 className="mb-4 text-[3rem] leading-none font-extrabold tracking-[-0.05em]">About me.</h2>
-            <p className="max-w-[760px] text-[1.05rem] leading-[2.15rem] text-[var(--color-body)] transition-colors duration-300">
-              I build production-ready web and AI applications using <InlineBadge tone="blue">Java</InlineBadge>, <InlineBadge tone="sky">Python</InlineBadge>, <InlineBadge tone="neutral">JavaScript</InlineBadge>, <InlineBadge tone="green">React</InlineBadge>, and <InlineBadge tone="teal">Node.js</InlineBadge>  — focused on clean UX and real user impact.
+            <h2 className="mb-3 text-[3.2rem] leading-none font-extrabold tracking-[-0.05em] text-[var(--color-text)]">
+              About me.
+            </h2>
+
+            <p className="max-w-[760px] text-[1.08rem] leading-[2.15rem] text-[var(--color-body)] transition-colors duration-300">
+              I build production-ready web and AI applications using{" "}
+              <InlineBadge tone="blue">Java</InlineBadge>,{" "}
+              <InlineBadge tone="sky">Python</InlineBadge>,{" "}
+              <InlineBadge tone="neutral">JavaScript</InlineBadge>,{" "}
+              <InlineBadge tone="green">React</InlineBadge>, and{" "}
+              <InlineBadge tone="teal">Node.js</InlineBadge> — focused on clean UX, performance, and real user impact.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-  <a
-    href="mailto:rishavkumar7034@gmail.com"
-    className="inline-flex items-center gap-3 rounded-[18px]
-    border border-[var(--color-border)]
-    bg-[var(--color-card)]
-    px-8 py-4
-    text-[1.15rem]
-    font-extrabold
-    text-[var(--color-text)]
-    no-underline
-    shadow-[var(--shadow-card)]
-    transition-all duration-300
-    hover:-translate-y-1
-    hover:bg-[var(--color-card-soft)]"
-  >
-    <SendIcon />
-    <span>Let&apos;s Connect</span>
-  </a>
+            {/* Quick Hero Key Stats Bar */}
+            <div className="my-7 grid grid-cols-3 gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card-soft-2)] p-3.5 text-center">
+              <div>
+                <p className="text-2xl font-black text-emerald-400">8+</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-section-muted)] mt-0.5">Projects Built</p>
+              </div>
+              <div className="border-x border-[var(--color-border)]">
+                <p className="text-2xl font-black text-amber-400">2× Winner</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-section-muted)] mt-0.5">Hackathons</p>
+              </div>
+              <div>
+                <p className="text-2xl font-black text-sky-400">150+</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-section-muted)] mt-0.5">DSA Solved</p>
+              </div>
+            </div>
 
-  <a
-    href="#projects"
-    className="inline-flex items-center rounded-[18px]
-    border border-[var(--color-border)]
-    bg-[var(--color-card-soft)]
-    px-7 py-4
-    text-[1.05rem]
-    font-bold
-    text-[var(--color-text)]
-    transition-all duration-300
-    hover:-translate-y-1
-    hover:bg-[var(--color-card)]"
-  >
-    View Projects
-  </a>
-</div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                onClick={onOpenContact}
+                className="inline-flex items-center gap-3 rounded-[18px] bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 px-8 py-4 text-[1.1rem] font-extrabold text-slate-950 shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(16,185,129,0.55)] hover:scale-105"
+              >
+                <SendIcon />
+                <span>Let&apos;s Connect</span>
+              </button>
+
+              <a
+                href="#projects"
+                className="inline-flex items-center rounded-[18px] border border-emerald-500/30 bg-[var(--color-card-soft)] px-7 py-4 text-[1.05rem] font-bold text-emerald-400 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400 hover:bg-emerald-500/10"
+              >
+                View Projects →
+              </a>
+            </div>
           </article>
 
+          {/* Technical Skills Sidebar */}
           <aside className="rounded-[30px] border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-[var(--shadow-card)] transition-colors duration-300 sm:p-7 lg:row-span-2">
             <div className="mb-6 flex items-center gap-3 text-[var(--color-section-muted)] transition-colors duration-300">
               <ArrowBracketIcon />
-              <p className="text-[0.95rem] font-bold tracking-[0.22em] uppercase">Technical Skills</p>
+              <p className="text-[0.95rem] font-bold tracking-[0.22em] uppercase">
+                Technical Skills
+              </p>
             </div>
             <div className="space-y-7">
               {skillsGroups.map((group) => (
                 <div key={group.title}>
-                  <p className="mb-3 text-[0.72rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-soft)] transition-colors duration-300">{group.title}</p>
+                  <p className="mb-3 text-[0.72rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-soft)] transition-colors duration-300">
+                    {group.title}
+                  </p>
                   <div className="flex flex-wrap gap-2.5">
                     {group.items.map((item) => (
                       <SkillChip key={item.name} name={item.name} iconSrc={item.iconSrc} />
@@ -580,269 +592,189 @@ function PortfolioHome({ time, theme, onToggleTheme, heroRole }) {
           </article>
         </section>
 
+        {/* GitHub Activity Heatmap */}
         <GitHubActivitySection />
 
-        <section className="mt-24" id="projects">
-          <SectionTitle icon={<BookIcon />} title="Featured Projects" description="Only your own projects from GitHub, with clickable detail pages for each one." />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
+        {/* Engineering System Metrics */}
+        <EngineeringMetrics />
+
+        {/* Filterable Projects Section */}
+        <ProjectSection onOpenShare={onOpenShare} />
+
+        {/* Interactive Milestone Timeline */}
+        <Timeline />
+
+        {/* Achievements & Certifications Modals Grid */}
+        <section className="mt-24 grid gap-6 md:grid-cols-2">
+          <InteractivePanel
+            title="Achievements & Awards"
+            items={achievementsData}
+            onOpenCredential={onOpenCredential}
+          />
+          <InteractivePanel
+            title="Certifications & Credentials"
+            items={certificatesData}
+            onOpenCredential={onOpenCredential}
+          />
         </section>
 
-        <section className="mt-24 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <InfoPanel title="Achievements" items={achievements} />
-          <InfoPanel title="Certificates" items={certificates} />
-        </section>
-
-        <Footer />
+        <Footer onOpenResume={onOpenResume} />
       </main>
+
+      {/* Floating Bottom Action Badges for Desktop */}
+      <div className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col gap-3 items-end">
+        <button
+          onClick={onOpenAiWidget}
+          className="group flex items-center gap-2.5 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-5 py-3 text-xs font-extrabold text-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.3)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-emerald-500 hover:text-slate-950"
+        >
+          <Sparkles className="h-4 w-4 text-emerald-400 group-hover:text-slate-950 animate-pulse" />
+          <span>🤖 Ask Portfolio AI</span>
+        </button>
+
+        <button
+          onClick={onOpenRecruiterCard}
+          className="group flex items-center gap-2.5 rounded-full border border-emerald-500/40 bg-slate-900/90 px-5 py-3 text-xs font-extrabold text-emerald-400 shadow-[0_10px_35px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-emerald-400 hover:bg-emerald-500 hover:text-slate-950"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 group-hover:bg-slate-950" />
+          </span>
+          <span>📱 Recruiter Cheat Sheet</span>
+        </button>
+      </div>
+
+      {/* Mobile Touch Native Bottom Navigation Bar */}
+      <MobileBottomNav
+        onOpenAiWidget={onOpenAiWidget}
+        onOpenRecruiterCard={onOpenRecruiterCard}
+        onOpenContact={onOpenContact}
+      />
     </div>
   );
 }
 
-function ProjectDetailPage({ project, onBack, theme, onToggleTheme }) {
+function AboutPage({ theme, onToggleTheme, onOpenContact, onOpenResume, onBack }) {
   return (
     <div className="min-h-screen bg-transparent text-[var(--color-text)] transition-colors duration-300">
       <div className="pointer-events-none fixed inset-0 border-t-[10px] border-[var(--color-topbar)]" />
       <div className="pointer-events-none fixed inset-y-0 right-0 w-[32vw] bg-[radial-gradient(circle_at_top,var(--color-right-glow),transparent_60%)]" />
 
       <main className="mx-auto w-[min(1320px,calc(100%-32px))] pb-16 pt-14 sm:pt-20">
-
-        {/* Header */}
         <div className="mb-8 flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 font-semibold transition hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5"
           >
             <ArrowLeftIcon />
-            Back to Projects
+            Back to home
           </button>
-
           <div className="flex items-center gap-3">
-            <a
-              href="mailto:rishavkumar7034@gmail.com"
-              className="inline-flex items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 font-semibold transition hover:-translate-y-0.5"
-            >
-              Contact
-            </a>
-
             <button
+              onClick={onOpenResume}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5"
+            >
+              <FileText className="h-4 w-4 text-amber-400" />
+              View Resume
+            </button>
+            <button
+              type="button"
               onClick={onToggleTheme}
-              className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)]"
+              className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] transition hover:-translate-y-0.5"
+              aria-label="Toggle theme"
             >
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
             </button>
           </div>
         </div>
 
-        <section className="grid gap-6 xl:grid-cols-[2fr_0.8fr]">
-
-          {/* LEFT */}
-
-          <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-[var(--shadow-card)]">
-
-            <p className="text-sm uppercase tracking-[0.3em] text-[var(--color-section-muted)]">
-              {project.period} • {project.role}
-            </p>
-
-            <h1 className="mt-3 text-6xl font-extrabold tracking-tight">
-              {project.title}
-            </h1>
-
-            <p className="mt-6 text-lg leading-9 text-[var(--color-body)]">
-              {project.summary}
-            </p>
-
-            {/* Project Overview */}
-
-            {project.description && (
-              <div className="mt-12">
-                <h2 className="mb-6 text-3xl font-bold">
-                  Project Overview
-                </h2>
-
-                <div className="space-y-6">
-                  {project.description.map((paragraph, index) => (
-                    <p
-                      key={index}
-                      className="text-[1.05rem] leading-9 text-[var(--color-body)]"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tech Stack */}
-
-            <div className="mt-12">
-              <h2 className="mb-5 text-3xl font-bold">
-                Tech Stack
-              </h2>
-
-              <div className="flex flex-wrap gap-3">
-                {project.stack.map((tech) => (
-                  <ProjectTag key={tech}>
-                    {tech}
-                  </ProjectTag>
-                ))}
-              </div>
-            </div>
-
-            {/* Highlights */}
-
-            <div className="mt-12">
-              <h2 className="mb-6 text-3xl font-bold">
-                Key Features
-              </h2>
-
-              <div className="grid gap-5 md:grid-cols-2">
-                {project.highlights.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card-soft-2)] p-6"
-                  >
-                    <p className="leading-8 text-[var(--color-body)]">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </article>
-
-          {/* RIGHT SIDEBAR */}
-
-          <aside className="space-y-6">
-
-            <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7">
-
-              <h3 className="mb-5 text-xl font-bold">
-                Project Details
-              </h3>
-
-              <div className="space-y-4">
-
-                <div>
-                  <p className="text-sm text-[var(--color-section-muted)]">
-                    Role
-                  </p>
-
-                  <p>{project.role}</p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-[var(--color-section-muted)]">
-                    Timeline
-                  </p>
-
-                  <p>{project.period}</p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-[var(--color-section-muted)]">
-                    Technologies
-                  </p>
-
-                  <p>{project.stack.join(", ")}</p>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7">
-
-              <h3 className="mb-5 text-xl font-bold">
-                GitHub Repository
-              </h3>
-
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--color-card-soft)] px-5 py-3 font-semibold transition hover:-translate-y-1"
-              >
-                Open Repository
-                <ArrowUpRightIcon />
-              </a>
-
-            </div>
-
-          </aside>
-
-        </section>
-
-      </main>
-    </div>
-  );
-}
-function AboutPage({ theme, onToggleTheme, onBack }) {
-  return (
-    <div className="min-h-screen bg-transparent text-[var(--color-text)] transition-colors duration-300">
-      <div className="pointer-events-none fixed inset-0 border-t-[10px] border-[var(--color-topbar)]" />
-      <div className="pointer-events-none fixed inset-y-0 right-0 w-[32vw] bg-[radial-gradient(circle_at_top,var(--color-right-glow),transparent_60%)]" />
-
-      <main className="mx-auto w-[min(1320px,calc(100%-32px))] pb-16 pt-14 sm:pt-20">
-        <div className="mb-8 flex items-center justify-between gap-4">
-          <button type="button" onClick={onBack} className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--color-text)] transition hover:-translate-y-0.5">
-            <ArrowLeftIcon />
-            Back to home
-          </button>
-          <button type="button" onClick={onToggleTheme} className="grid h-11 w-11 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] transition hover:-translate-y-0.5" aria-label="Toggle light and dark theme">
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </button>
-        </div>
-
         <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
           <article className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)] sm:p-9">
-            <div className="mb-6 overflow-hidden rounded-[28px] bg-[#f8fafc] p-4 shadow-[0_24px_60px_rgba(15,23,42,0.12)]">
-              <img className="h-[380px] w-full rounded-[24px] object-cover object-top" src={profilePhoto} alt="Rishav Kumar avatar" />
+            <div className="mb-6 overflow-hidden rounded-[24px] bg-[var(--color-card-soft-2)] p-2 shadow-xl border border-[var(--color-border)]">
+              <img
+                className="w-full max-h-[460px] rounded-[20px] object-cover object-top"
+                src={profilePhoto}
+                alt="Rishav Kumar profile"
+              />
             </div>
-            <h1 className="text-[2.8rem] leading-[0.95] font-extrabold tracking-[-0.06em] sm:text-[4rem]">About me.</h1>
+            <h1 className="text-[2.8rem] leading-[0.95] font-extrabold tracking-[-0.06em] sm:text-[3.8rem]">
+              About me.
+            </h1>
             <p className="mt-4 text-[1.08rem] leading-[2.1rem] text-[var(--color-body)]">
-              I design and build clean, practical digital products across web, automation, and AI. I care about fast interfaces, clear structure, and work that feels polished without losing usefulness.
+              I am a Software Engineering student at Acharya Institute of Technology, Bengaluru (B.E. Information Science, CGPA: 8.20).
+              Specialized in building full-stack products, cloud infrastructure pipelines, and AI-driven automated systems.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="mailto:rishavkumar7034@gmail.com" className="inline-flex items-center gap-3 rounded-[18px] border border-white/20 bg-[#f8fafc] px-6 py-3 text-[0.98rem] font-extrabold text-slate-900 shadow-[0_16px_35px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5">
+              <button
+                onClick={onOpenContact}
+                className="inline-flex items-center gap-3 rounded-[18px] bg-gradient-to-r from-emerald-400 to-teal-500 px-7 py-3.5 text-[1rem] font-extrabold text-slate-950 shadow-lg transition hover:-translate-y-0.5"
+              >
                 <SendIcon />
                 Contact me
-              </a>
-              <a href="https://github.com/rishav-026" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-[18px] border border-[var(--color-border)] bg-[var(--color-card-soft)] px-6 py-3 text-[0.98rem] font-bold text-[var(--color-text)] transition hover:-translate-y-0.5">
-                GitHub profile
+              </button>
+              <a
+                href="https://github.com/rishav-026"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center rounded-[18px] border border-[var(--color-border)] bg-[var(--color-card-soft)] px-6 py-3.5 text-[0.98rem] font-bold text-[var(--color-text)] transition hover:-translate-y-0.5"
+              >
+                GitHub Profile
               </a>
             </div>
           </article>
 
           <article className="space-y-6">
             <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)]">
-              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">What I do</p>
-              <p className="text-[1.02rem] leading-8 text-[var(--color-body)]">I build full-stack products, developer tools, and AI-driven interfaces with a focus on clean execution and practical value.</p>
+              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">
+                Academic Background
+              </p>
+              <h3 className="text-xl font-bold text-[var(--color-text)]">B.E. Information Science and Engineering</h3>
+              <p className="text-sm font-semibold text-emerald-400 mt-1">Acharya Institute of Technology, Bengaluru (2023 – 2027)</p>
+              <p className="mt-2 text-sm text-[var(--color-body)] leading-relaxed">
+                Academic CGPA: <strong className="text-[var(--color-text)]">8.20 / 10</strong>. Coursework covers Data Structures & Algorithms, Database Management Systems (DBMS), Computer Networks, Operating Systems, and Web Software Engineering.
+              </p>
             </div>
 
             <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)]">
-              <p className="mb-4 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">Core strengths</p>
+              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">
+                What I do & Focus Areas
+              </p>
+              <p className="text-[1.02rem] leading-8 text-[var(--color-body)]">
+                I build full-stack web products, automated cloud deployment pipelines, and AI-driven systems. Focused on clean system design, backend scalability, and high-performance interfaces.
+              </p>
+            </div>
+
+            <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)]">
+              <p className="mb-4 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">
+                Core Strengths & Tech Stack
+              </p>
               <div className="flex flex-wrap gap-2.5">
                 {[
-                  "Full-stack development",
-                  "UI systems",
-                  "Automation",
-                  "AI workflows",
-                  "Deployment",
-                  "Product design",
-                ].map((item) => <ProjectTag key={item}>{item}</ProjectTag>)}
+                  "Full-stack development (React, Node.js)",
+                  "Python & FastAPI",
+                  "Java OOP & Algorithms",
+                  "AWS & Docker Deployment",
+                  "AI Workflows & LLM Orchestration",
+                  "MySQL & MongoDB",
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="inline-flex items-center rounded-full bg-[var(--color-card-soft-strong)] border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold text-[var(--color-text)]"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
 
             <div className="rounded-[32px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)]">
-              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">Quick links</p>
+              <p className="mb-3 text-[0.8rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">
+                Quick links
+              </p>
               <div className="grid gap-3 sm:grid-cols-2">
-                {profileLinks.map((link) => <SocialCard key={link.label} href={link.href} label={link.label} />)}
+                {profileLinks.map((link) => (
+                  <SocialCard key={link.label} href={link.href} label={link.label} />
+                ))}
               </div>
             </div>
           </article>
@@ -856,118 +788,48 @@ function AboutCard() {
   return (
     <a
       href="#about"
-      className="group block overflow-hidden rounded-[30px]
-      border border-[var(--color-border)]
-      bg-[var(--color-card)]
-      p-5
-      shadow-[var(--shadow-card)]
-      transition-all duration-300
-      hover:-translate-y-1
-      hover:border-white/10
-      hover:bg-[var(--color-card-soft)]"
+      className="group block overflow-hidden rounded-[30px] border border-[var(--color-border)] bg-[var(--color-card)] p-5 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-[var(--color-card-soft)]"
     >
-      <div
-        className="flex items-center gap-5 rounded-[24px]
-        border border-[var(--color-border)]
-        bg-[var(--color-card-soft)]
-        p-5"
-      >
-        {/* Profile Image */}
+      <div className="flex items-center gap-5 rounded-[24px] border border-[var(--color-border)] bg-[var(--color-card-soft)] p-5">
         <div className="relative shrink-0">
           <img
             src={profilePhoto}
             alt="Rishav Kumar"
-            className="h-20 w-20 rounded-full object-cover object-center
-            ring-2 ring-[var(--color-border)]
-            transition duration-300 group-hover:scale-105"
+            className="h-20 w-20 rounded-full object-cover object-center ring-2 ring-[var(--color-border)] transition duration-300 group-hover:scale-105"
           />
-
-          <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full bg-emerald-500 border-2 border-[var(--color-card)]"></span>
+          <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full bg-emerald-500 border-2 border-[var(--color-card)]" />
         </div>
 
-        {/* Content */}
         <div className="flex-1 min-w-0">
-          <p
-            className="text-[11px]
-            uppercase
-            tracking-[0.35em]
-            font-semibold
-            text-[var(--color-section-muted)]"
-          >
+          <p className="text-[11px] uppercase tracking-[0.35em] font-semibold text-[var(--color-section-muted)]">
             ABOUT ME
           </p>
 
-          <h2
-            className="mt-1
-            text-2xl
-            font-bold
-            text-[var(--color-text)]"
-          >
-            Hi, I'm Rishav Kumar 👋
+          <h2 className="mt-1 text-2xl font-bold text-[var(--color-text)]">
+            Hi, I&apos;m Rishav Kumar 👋
           </h2>
 
-          <p
-            className="mt-2
-            text-sm
-            leading-6
-            text-[var(--color-body)]"
-          >
-            Software Engineering student passionate about building scalable
-            backend systems, AI-powered applications, cloud-native products,
-            and solving real-world problems.
+          <p className="mt-2 text-sm leading-6 text-[var(--color-body)]">
+            Software Engineering student passionate about building scalable backend systems, AI-powered applications, cloud-native products, and solving real-world problems.
           </p>
-
-          {/* Badges */}
 
           <div className="mt-4 flex flex-wrap gap-2">
             <span className="rounded-full bg-[var(--color-card-soft-strong)] px-3 py-1 text-xs font-medium text-[var(--color-text)]">
               Backend
             </span>
-
             <span className="rounded-full bg-[var(--color-card-soft-strong)] px-3 py-1 text-xs font-medium text-[var(--color-text)]">
               AI
             </span>
-
             <span className="rounded-full bg-[var(--color-card-soft-strong)] px-3 py-1 text-xs font-medium text-[var(--color-text)]">
               Cloud
             </span>
-
             <span className="rounded-full bg-[var(--color-card-soft-strong)] px-3 py-1 text-xs font-medium text-[var(--color-text)]">
               DevOps
             </span>
           </div>
-
-          {/* Achievements */}
-
-          <div className="mt-4 flex flex-wrap gap-5 text-sm text-[var(--color-body)]">
-
-            <div>
-              🏆 <span className="font-semibold">2× Hackathon Winner</span>
-            </div>
-
-            <div>
-              🥉 <span className="font-semibold">ImpactX'25 Finalist</span>
-            </div>
-
-          </div>
         </div>
 
-        {/* CTA */}
-
-        <div
-          className="hidden sm:flex
-          items-center
-          rounded-full
-          bg-[var(--color-button)]
-          px-5
-          py-3
-          text-sm
-          font-bold
-          text-[var(--color-button-text)]
-          transition-all
-          duration-300
-          group-hover:scale-105"
-        >
+        <div className="hidden sm:flex items-center rounded-full bg-[var(--color-button)] px-5 py-3 text-sm font-bold text-[var(--color-button-text)] transition-all duration-300 group-hover:scale-105">
           View →
         </div>
       </div>
@@ -975,31 +837,24 @@ function AboutCard() {
   );
 }
 
-function ProjectCard({ project }) {
-  return (
-    <a href={`#project/${project.slug}`} className="group rounded-[28px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 transition duration-300 hover:-translate-y-0.5">
-      <div className="mb-3 flex items-start justify-between gap-4">
-        <div>
-          <p className="mb-2 text-[0.72rem] font-bold tracking-[0.28em] uppercase text-[var(--color-section-muted)]">{project.period}</p>
-          <h3 className="text-[2rem] leading-tight font-extrabold tracking-[-0.05em]">{project.title}</h3>
-          <p className="mt-1 text-[0.95rem] font-semibold text-[var(--color-section-muted)]">{project.subtitle}</p>
-        </div>
-        <span className="text-[var(--color-section-muted)] transition group-hover:text-[var(--color-text)]"><ArrowUpRightIcon /></span>
-      </div>
-      <p className="min-h-32 text-[1.02rem] leading-8 text-[var(--color-body)] transition-colors duration-300">{project.summary}</p>
-      <div className="mt-5 flex flex-wrap gap-2">{project.stack.map((item) => <ProjectTag key={item}>{item}</ProjectTag>)}</div>
-    </a>
-  );
-}
-
-function ProjectTag({ children }) {
-  return <span className="inline-flex items-center rounded-full bg-[var(--color-card-soft)] px-2.5 py-1 text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-section-muted)] transition-colors duration-300">{children}</span>;
-}
-
 function SkillChip({ name, iconSrc }) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <span className="inline-flex min-h-10 shrink-0 items-center gap-2 whitespace-nowrap rounded-[14px] border border-[var(--color-border)] bg-[var(--color-card-soft-2)] px-3 py-2 text-[0.9rem] font-semibold text-[var(--color-text)]">
-      {iconSrc ? <img className="h-5 w-5 shrink-0" src={iconSrc} alt="" aria-hidden="true" /> : <span className="grid h-5 w-5 place-items-center rounded-[4px] bg-[rgba(255,255,255,0.06)] text-[0.68rem] font-black">{techBadgeFor(name)}</span>}
+      {iconSrc && !imgError ? (
+        <img
+          className="h-5 w-5 shrink-0"
+          src={iconSrc}
+          alt=""
+          aria-hidden="true"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <span className="grid h-5 w-5 place-items-center rounded-[4px] bg-[rgba(255,255,255,0.06)] text-[0.68rem] font-black">
+          {techBadgeFor(name)}
+        </span>
+      )}
       <span>{name}</span>
     </span>
   );
@@ -1017,43 +872,26 @@ function InlineBadge({ children, tone = "neutral" }) {
     indigo: "border-indigo-400/20 bg-indigo-500/8 text-indigo-200",
   };
 
-  return <span className={`mx-1 inline-flex items-center rounded-[12px] border px-3 py-1.5 text-[0.98rem] font-bold ${tones[tone]}`}>{children}</span>;
+  return (
+    <span className={`mx-1 inline-flex items-center rounded-[12px] border px-3 py-1.5 text-[0.98rem] font-bold ${tones[tone]}`}>
+      {children}
+    </span>
+  );
 }
 
 function SocialCard({ href, label }) {
   const external = href.startsWith("http");
   return (
-    <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined} className="group flex min-h-[124px] flex-col items-center justify-center rounded-[18px] border border-[var(--color-border)] bg-[var(--color-card-soft-2)] text-[var(--color-section-muted)] transition duration-300 hover:-translate-y-0.5 hover:border-white/10 hover:bg-[var(--color-card-soft-strong)] hover:text-[var(--color-text)]">
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      className="group flex min-h-[124px] flex-col items-center justify-center rounded-[18px] border border-[var(--color-border)] bg-[var(--color-card-soft-2)] text-[var(--color-section-muted)] transition duration-300 hover:-translate-y-0.5 hover:border-white/10 hover:bg-[var(--color-card-soft-strong)] hover:text-[var(--color-text)]"
+    >
       <span className="text-[0.95rem] font-semibold">{label}</span>
       <span className="mt-2 text-[0.82rem]">Open</span>
     </a>
   );
-}
-
-<GitHubActivitySection />
-
-function makeTooltip(target, cell) {
-  const rect = target.getBoundingClientRect();
-  return {
-    date: cell.date,
-    count: cell.count,
-    x: rect.left + rect.width / 2 + window.scrollX,
-    y: rect.top + window.scrollY,
-  };
-}
-
-function formatTooltipDate(date) {
-  return new Date(date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-}
-
-function levelToColor(level) {
-  switch (level) {
-    case 4: return "bg-[#39D353]";
-    case 3: return "bg-[#26A641]";
-    case 2: return "bg-[#006D32]";
-    case 1: return "bg-[#0E4429]";
-    default: return "bg-[var(--color-gh-zero)]";
-  }
 }
 
 function techBadgeFor(name) {
@@ -1083,119 +921,81 @@ function techBadgeFor(name) {
   return badges[name] || name.slice(0, 2).toUpperCase();
 }
 
-function SectionTitle({ icon, title, description }) {
-  return (
-    <div>
-      <div className="flex items-center gap-4">
-        <span className="text-[var(--color-section-muted)] transition-colors duration-300">{icon}</span>
-        <h2 className="text-[3rem] leading-none font-extrabold tracking-[-0.05em]">{title}</h2>
-      </div>
-      <p className="mt-3 text-[1.05rem] text-[var(--color-section-muted)] transition-colors duration-300">{description}</p>
-    </div>
-  );
-}
-
-function InfoPanel({ title, items }) {
+function InteractivePanel({ title, items, onOpenCredential }) {
   return (
     <article className="rounded-[28px] border border-[var(--color-border)] bg-[var(--color-card)] p-7 transition-colors duration-300">
-      <p className="mb-4 text-[0.8rem] font-bold tracking-[0.22em] uppercase text-[var(--color-section-muted)] transition-colors duration-300">{title}</p>
-      <ul className="space-y-3 text-[1rem] leading-8 text-[var(--color-body)] transition-colors duration-300">
-        {items.map((item) => <li key={item}>{item}</li>)}
-      </ul>
+      <p className="mb-4 text-[0.8rem] font-bold tracking-[0.22em] uppercase text-[var(--color-section-muted)] transition-colors duration-300 flex items-center justify-between">
+        <span>{title}</span>
+        <span className="text-[10px] text-emerald-400 font-mono">Click to inspect</span>
+      </p>
+      <div className="space-y-3">
+        {items.map((item) => (
+          <button
+            key={item.title}
+            onClick={() => onOpenCredential(item)}
+            className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card-soft-2)] p-4 text-left transition hover:scale-[1.01] hover:bg-[var(--color-card-soft-strong)] hover:border-emerald-500/30"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl">{item.icon}</span>
+              <div>
+                <h4 className="text-sm font-bold text-[var(--color-text)]">{item.title}</h4>
+                <p className="text-xs text-[var(--color-section-muted)] mt-0.5">{item.issuer}</p>
+              </div>
+            </div>
+            <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0 opacity-70" />
+          </button>
+        ))}
+      </div>
     </article>
   );
 }
 
-function Footer() {
+function Footer({ onOpenResume }) {
   return (
     <footer className="mt-24 border-t border-[var(--color-border)] pt-10 pb-6">
       <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-
-        {/* Left Section */}
         <div>
           <h3 className="text-2xl font-bold text-[var(--color-text)]">
             Rishav Kumar
           </h3>
-
           <p className="mt-2 max-w-md text-[var(--color-body)] leading-7">
-            Software Engineering Student passionate about Backend Development,
-            Cloud Computing, AI, and building scalable applications that solve
-            real-world problems.
+            Software Engineering Student passionate about Backend Development, Cloud Computing, AI, and building scalable applications that solve real-world problems.
           </p>
-
           <div className="mt-4 flex flex-wrap gap-3">
             <span className="rounded-full bg-[var(--color-card-soft)] px-3 py-1 text-sm text-[var(--color-text)]">
               💻 150+ DSA Problems
             </span>
-
             <span className="rounded-full bg-[var(--color-card-soft)] px-3 py-1 text-sm text-[var(--color-text)]">
               🏆 2× Hackathon Winner
             </span>
-
             <span className="rounded-full bg-[var(--color-card-soft)] px-3 py-1 text-sm text-[var(--color-text)]">
               🚀 Full Stack Developer
             </span>
           </div>
         </div>
 
-        {/* Right Section */}
         <div className="flex flex-col gap-3 text-[0.95rem]">
-
-          <a
-            href="mailto:rishavkumar7034@gmail.com"
-            className="transition hover:text-[var(--color-text)]"
-          >
+          <a href="mailto:rishavkumar7034@gmail.com" className="transition hover:text-[var(--color-text)]">
             📧 Email
           </a>
-
-          <a
-            href="https://github.com/rishav-026"
-            target="_blank"
-            rel="noreferrer"
-            className="transition hover:text-[var(--color-text)]"
-          >
+          <a href="https://github.com/rishav-026" target="_blank" rel="noreferrer" className="transition hover:text-[var(--color-text)]">
             💻 GitHub
           </a>
-
-          <a
-            href="https://www.linkedin.com/in/rishavkumar12/"
-            target="_blank"
-            rel="noreferrer"
-            className="transition hover:text-[var(--color-text)]"
-          >
+          <a href="https://www.linkedin.com/in/rishavkumar12/" target="_blank" rel="noreferrer" className="transition hover:text-[var(--color-text)]">
             🔗 LinkedIn
           </a>
-
-          <a
-            href="#projects"
-            className="transition hover:text-[var(--color-text)]"
-          >
+          <a href="#projects" className="transition hover:text-[var(--color-text)]">
             🚀 Projects
           </a>
-
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            className="transition hover:text-[var(--color-text)]"
-          >
+          <button onClick={onOpenResume} className="text-left transition hover:text-[var(--color-text)]">
             📄 Resume
-          </a>
-
+          </button>
         </div>
       </div>
 
-      {/* Bottom */}
-
       <div className="mt-10 flex flex-col gap-2 border-t border-[var(--color-border)] pt-6 text-sm text-[var(--color-section-muted)] md:flex-row md:items-center md:justify-between">
-
-        <p>
-          © {new Date().getFullYear()} Rishav Kumar. All rights reserved.
-        </p>
-
-        <p>
-          Built with React • Tailwind CSS • Vite
-        </p>
-
+        <p>© {new Date().getFullYear()} Rishav Kumar. All rights reserved.</p>
+        <p>Built with React • Tailwind CSS • Vite</p>
       </div>
     </footer>
   );
@@ -1206,15 +1006,6 @@ function ArrowLeftIcon() {
     <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2">
       <path d="M14 6 8 12l6 6" />
       <path d="M8 12h12" />
-    </svg>
-  );
-}
-
-function ArrowUpRightIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current stroke-2">
-      <path d="M7 17 17 7" />
-      <path d="M9 7h8v8" />
     </svg>
   );
 }
@@ -1265,33 +1056,6 @@ function SparkIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current">
       <path d="M12 2.5 14.2 9l6.3 1.2-5 4.4 1 6.4L12 17.7 7.5 21l1-6.4-5-4.4L9.8 9 12 2.5Z" />
-    </svg>
-  );
-}
-
-function LocationIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current stroke-2">
-      <path d="M12 21s-6-4.35-6-10a6 6 0 1 1 12 0c0 5.65-6 10-6 10Z" />
-      <circle cx="12" cy="11" r="2.5" />
-    </svg>
-  );
-}
-
-function BookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-8 w-8 fill-none stroke-current stroke-2">
-      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v18H6.5A2.5 2.5 0 0 0 4 23Z" />
-      <path d="M4 5.5V19a2 2 0 0 0 2 2" />
-    </svg>
-  );
-}
-
-function GitHubIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current stroke-[1.8]">
-      <path d="M9 19c-4 1.5-4-2-6-2" />
-      <path d="M15 22v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-6 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
     </svg>
   );
 }
