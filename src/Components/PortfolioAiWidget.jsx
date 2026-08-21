@@ -190,7 +190,17 @@ function getPreciseAnswer(rawQuery) {
     );
   }
 
-  // 4. VERCEL CLONE
+  // 4. APP INTEL
+  if (match(["app intel", "appintel", "composio", "100-app", "100 app", "verifier", "researchagent"])) {
+    return (
+      "🤖 App Intel (Composio AI App Research & Verification System):\n\n" +
+      "• What it does: End-to-end multi-agent AI research pipeline and product ops analytics dashboard across 100 enterprise software apps. Features autonomous web discovery, Playwright scraping, quote verification, and zero-wait model failover.\n" +
+      "• Tech Stack: Python, FastAPI, React, Groq AI, Playwright, LangChain.\n" +
+      "• GitHub Repo: https://github.com/rishav-026/app-intel"
+    );
+  }
+
+  // 5. VERCEL CLONE
   if (match(["vercel", "deploy platform", "s3 build", "clone"])) {
     return (
       "🚀 Vercel Clone (Automated Full-Stack Deployment Platform):\n\n" +
