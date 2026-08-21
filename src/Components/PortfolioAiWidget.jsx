@@ -156,6 +156,42 @@ function getPreciseAnswer(rawQuery) {
   // Helper matcher
   const match = (terms) => terms.some((t) => q.includes(t));
 
+  // 0. WHY HIRE RISHAV / WHY WOULD I HIRE YOU
+  if (
+    match([
+      "why hire",
+      "why would i hire",
+      "why should i hire",
+      "why should we hire",
+      "why rishav",
+      "why pick",
+      "why choose",
+      "reasons to hire",
+      "why hire you",
+      "what makes him stand out",
+      "why hire him",
+    ])
+  ) {
+    return (
+      "🚀 Why You Should Hire Rishav Kumar:\n\n" +
+      "1. 🏆 Proven Track Record & 2× State Hackathon Winner:\n" +
+      "   • 2nd Place @ Srujana State Hackathon 2025 out of 100+ teams (CivicSim AI Platform).\n" +
+      "   • Winner @ State Hackathon (Sarkaar Sarthi AI Multilingual Welfare Assistant).\n\n" +
+      "2. 🚀 Full-Stack, Cloud DevOps & Multi-Agent AI Expertise:\n" +
+      "   • Architected Vercel-like automated cloud deployment pipelines (Docker, AWS S3/ECS).\n" +
+      "   • Built LogIntelligence AI incident triage engines (FastAPI, LangChain, Llama 3).\n" +
+      "   • Built App Intel 100-app multi-agent research pipeline for Composio.\n\n" +
+      "3. 💻 Strong Algorithmic Fundamentals & Problem Solving:\n" +
+      "   • 150+ DSA problems solved in Java on LeetCode (@rishav1kr).\n" +
+      "   • Oracle Cloud OCI 2025 Certified AI Foundations Associate.\n\n" +
+      "4. 🎓 Excellent Academic Performance:\n" +
+      "   • B.E. Information Science & Engineering @ Acharya Institute of Technology (CGPA 8.20 / 10).\n\n" +
+      "5. ⚡ Fast Execution & Systems Engineering Mindset:\n" +
+      "   • Delivers production-ready code with sub-100ms API gateways, clean container isolation, and robust fallback logic.\n\n" +
+      "📬 Contact Rishav: rishavkumar7034@gmail.com | +91 6204627879 (Available for Full-Stack, Cloud & AI Roles!)"
+    );
+  }
+
   // 1. CGPA & MARKS
   if (match(["cgpa", "marks", "percentage", "gpa", "grade", "score"])) {
     return (
