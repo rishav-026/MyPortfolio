@@ -59,14 +59,7 @@
 <table>
   <tr>
     <td width="50%" valign="top">
-      <h3>🤖 1. App Intel</h3>
-      <p><b>Composio AI App Research & Verification System (100-App Case Study)</b></p>
-      <p>Multi-agent AI research pipeline & analytics dashboard across 100 enterprise software apps. Features web discovery, Playwright doc scraping, quote verifier, and zero-wait failover.</p>
-      <p><code>Python</code> • <code>FastAPI</code> • <code>React</code> • <code>Groq AI</code> • <code>Playwright</code></p>
-      <p><a href="https://github.com/rishav-026/app-intel"><b>View Code Repository »</b></a></p>
-    </td>
-    <td width="50%" valign="top">
-      <h3>⚡ 2. Vercel Clone</h3>
+      <h3>⚡ 1. Vercel Clone</h3>
       <p><b>Automated Full-Stack Cloud Deployment Platform</b></p>
       <p>Clones Git repos, executes isolated Docker container builds, streams deployment logs, and deploys static assets to AWS S3 with custom wildcard subdomains.</p>
       <p><code>React</code> • <code>Node.js</code> • <code>Docker</code> • <code>AWS S3</code> • <code>ECS</code></p>
@@ -94,6 +87,22 @@
       <p>Achieved 90%+ OCR data extraction accuracy analyzing public grant receipts and cross-verifying entries against data.gov.in APIs for corruption detection.</p>
       <p><code>Python</code> • <code>FastAPI</code> • <code>Tesseract OCR</code> • <code>Gemini AI</code></p>
       <p><a href="https://github.com/Rishabh-afk-beep/Civic-Sim"><b>View Code Repository »</b></a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🤖 5. App Intel</h3>
+      <p><b>Composio AI App Research & Verification System (100-App Case Study)</b></p>
+      <p>Multi-agent AI research pipeline & analytics dashboard across 100 enterprise software apps. Features web discovery, Playwright doc scraping, quote verifier, and zero-wait failover.</p>
+      <p><code>Python</code> • <code>FastAPI</code> • <code>React</code> • <code>Groq AI</code> • <code>Playwright</code></p>
+      <p><a href="https://github.com/rishav-026/app-intel"><b>View Code Repository »</b></a></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🇮🇳 6. Sarkaar Sarthi</h3>
+      <p><b>AI Multilingual Welfare Assistant (State Hackathon Winner)</b></p>
+      <p>RAG-based AI chatbot providing step-by-step guidance on Indian government welfare schemes in English, Hindi, Kannada, Tamil + 7 Indian languages with voice interaction.</p>
+      <p><code>React</code> • <code>Node.js</code> • <code>Express</code> • <code>FAISS RAG</code> • <code>MySQL</code></p>
+      <p><a href="https://github.com/rishav-026/SARKAAR-SAARTHI"><b>View Code Repository »</b></a></p>
     </td>
   </tr>
 </table>

@@ -8,51 +8,6 @@ export const projectCategories = [
 
 export const projects = [
   {
-    slug: "app-intel",
-    title: "App Intel",
-    period: "2026",
-    subtitle: "Composio AI App Research & Verification System (100-App Case Study)",
-    category: "AI & Python",
-    summary:
-      "An end-to-end, multi-agent AI research pipeline and product operations dashboard built for Composio. Autonomously conducts web discovery, documentation scraping, schema extraction, and source verification across 100 enterprise software apps.",
-    videoUrl: "",
-    description: [
-      "App Intel is an end-to-end, multi-agent AI research pipeline and product operations dashboard built for Composio. The system autonomously conducts web discovery, scrapes developer documentation, extracts structured integration schemas, performs independent source verification, and generates an interactive product ops analytics case study across 100 enterprise software applications.",
-
-      "The system's architecture is divided into clear multi-agent research phases: Phase 2 ResearchAgent plans search queries, retrieves documentation URLs via Google Search, scrapes technical documentation using HTML and Playwright, and extracts structured fields (Auth, Access Model, API Surface, MCP Status, Buildability) with direct quote evidence and confidence metrics.",
-
-      "In Phase 3, the independent VerifierAgent re-scrapes cited documentation independently, verifies whether extracted quotes match live text, flags contradictions or missing evidence, and routes low-confidence items to a Human-in-the-Loop review queue.",
-
-      "The Resilient Batch Runner (Phase 4) executes 100-app research batches sequentially with retry logic, exponential backoff, multi-model zero-wait failover (gpt-oss-20b -> allam-2-7b -> gpt-oss-safeguard-20b), and incremental state saving.",
-
-      "Phase 5 AnalysisEngine aggregates raw research data into product ops investment tiers (Easy Wins, Technical Discovery, Outreach Required), category patterns, and matrix records without hardcoded statistics.",
-
-      "Finally, a self-explanatory React + Vite Frontend provides a modern dark-mode tabbed dashboard featuring tabbed navigation (Overview, Investments, Patterns, 100-App Matrix, Architecture, Verification, CLI & Code)."
-    ],
-    stack: ["Python", "FastAPI", "React", "Groq AI", "Playwright", "LangChain"],
-    highlights: [
-      "Autonomous ResearchAgent: Plans search queries, scrapes developer docs via Playwright, and extracts structured schemas with quote evidence.",
-      "Independent VerifierAgent: Re-scrapes cited URLs independently to audit quote matches, detect contradictions, and route low-confidence items to human review.",
-      "Resilient Batch Runner & Failover: Executes 100-app batches with exponential backoff and multi-model zero-wait failover across Groq/OpenAI endpoints.",
-      "Interactive React Case Study Dashboard: Displays 100-App Matrix, investment tiers (Easy Wins, Discovery, Outreach), and verification audit drawers.",
-    ],
-    github: "https://github.com/rishav-026/app-intel",
-    role: "Lead AI & Systems Engineer",
-    demoType: "ai-pipeline",
-    demoTitle: "Multi-Agent Research & Verification Pipeline",
-    demoSnippet: `[AppIntel Engine] Executing 100-App Batch Run...
-[ResearchAgent] Salesforce: Searching developer.salesforce.com -> Scraping REST API Schema...
-[ResearchAgent] Extracted Auth: OAuth 2.0 | MCP Status: Supported | Confidence: 0.96
-[VerifierAgent] Verifying URL: developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest...
-[VerifierAgent] Quote match confirmed (100% verified). Output saved to data/verified_results.json`,
-    architecture: [
-      { step: "1. ResearchAgent (Web & Scraping)", detail: "Google Search discovery + Playwright doc scraping + Pydantic schema extraction", tech: "Python / Groq / Playwright" },
-      { step: "2. VerifierAgent (Audit & Verification)", detail: "Re-scrapes cited docs independently & flags contradictions for human review", tech: "Python / Single-Pass Audit" },
-      { step: "3. Resilient Batch Runner", detail: "Runs 100-app batches with multi-model failover & state persistence", tech: "Python / Multi-Model Failover" },
-      { step: "4. React Analytics Dashboard", detail: "Interactive dark-mode UI with 100-App Matrix, filters & evidence drawers", tech: "React / Vite / Recharts" },
-    ],
-  },
-  {
     slug: "vercel-clone",
     title: "Vercel Clone",
     period: "Mar 2026",
@@ -259,6 +214,51 @@ Gemini Verification: FLAGGED (Reason: Font Tampering & Unregistered Seal)`,
       { step: "2. Tesseract OCR Engine", detail: "Extracts textual parameters and line items", tech: "Tesseract / OpenCV" },
       { step: "3. Gemini AI Verification", detail: "Analyzes authenticity & compares with data.gov.in API", tech: "Google Gemini" },
       { step: "4. Anomaly Dashboard", detail: "Renders corruption risk matrix & audit logs", tech: "Chart.js / Tailwind" },
+    ],
+  },
+  {
+    slug: "app-intel",
+    title: "App Intel",
+    period: "2026",
+    subtitle: "Composio AI App Research & Verification System (100-App Case Study)",
+    category: "AI & Python",
+    summary:
+      "An end-to-end, multi-agent AI research pipeline and product operations dashboard built for Composio. Autonomously conducts web discovery, documentation scraping, schema extraction, and source verification across 100 enterprise software apps.",
+    videoUrl: "",
+    description: [
+      "App Intel is an end-to-end, multi-agent AI research pipeline and product operations dashboard built for Composio. The system autonomously conducts web discovery, scrapes developer documentation, extracts structured integration schemas, performs independent source verification, and generates an interactive product ops analytics case study across 100 enterprise software applications.",
+
+      "The system's architecture is divided into clear multi-agent research phases: Phase 2 ResearchAgent plans search queries, retrieves documentation URLs via Google Search, scrapes technical documentation using HTML and Playwright, and extracts structured fields (Auth, Access Model, API Surface, MCP Status, Buildability) with direct quote evidence and confidence metrics.",
+
+      "In Phase 3, the independent VerifierAgent re-scrapes cited documentation independently, verifies whether extracted quotes match live text, flags contradictions or missing evidence, and routes low-confidence items to a Human-in-the-Loop review queue.",
+
+      "The Resilient Batch Runner (Phase 4) executes 100-app research batches sequentially with retry logic, exponential backoff, multi-model zero-wait failover (gpt-oss-20b -> allam-2-7b -> gpt-oss-safeguard-20b), and incremental state saving.",
+
+      "Phase 5 AnalysisEngine aggregates raw research data into product ops investment tiers (Easy Wins, Technical Discovery, Outreach Required), category patterns, and matrix records without hardcoded statistics.",
+
+      "Finally, a self-explanatory React + Vite Frontend provides a modern dark-mode tabbed dashboard featuring tabbed navigation (Overview, Investments, Patterns, 100-App Matrix, Architecture, Verification, CLI & Code)."
+    ],
+    stack: ["Python", "FastAPI", "React", "Groq AI", "Playwright", "LangChain"],
+    highlights: [
+      "Autonomous ResearchAgent: Plans search queries, scrapes developer docs via Playwright, and extracts structured schemas with quote evidence.",
+      "Independent VerifierAgent: Re-scrapes cited URLs independently to audit quote matches, detect contradictions, and route low-confidence items to human review.",
+      "Resilient Batch Runner & Failover: Executes 100-app batches with exponential backoff and multi-model zero-wait failover across Groq/OpenAI endpoints.",
+      "Interactive React Case Study Dashboard: Displays 100-App Matrix, investment tiers (Easy Wins, Discovery, Outreach), and verification audit drawers.",
+    ],
+    github: "https://github.com/rishav-026/app-intel",
+    role: "Lead AI & Systems Engineer",
+    demoType: "ai-pipeline",
+    demoTitle: "Multi-Agent Research & Verification Pipeline",
+    demoSnippet: `[AppIntel Engine] Executing 100-App Batch Run...
+[ResearchAgent] Salesforce: Searching developer.salesforce.com -> Scraping REST API Schema...
+[ResearchAgent] Extracted Auth: OAuth 2.0 | MCP Status: Supported | Confidence: 0.96
+[VerifierAgent] Verifying URL: developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest...
+[VerifierAgent] Quote match confirmed (100% verified). Output saved to data/verified_results.json`,
+    architecture: [
+      { step: "1. ResearchAgent (Web & Scraping)", detail: "Google Search discovery + Playwright doc scraping + Pydantic schema extraction", tech: "Python / Groq / Playwright" },
+      { step: "2. VerifierAgent (Audit & Verification)", detail: "Re-scrapes cited docs independently & flags contradictions for human review", tech: "Python / Single-Pass Audit" },
+      { step: "3. Resilient Batch Runner", detail: "Runs 100-app batches with multi-model failover & state persistence", tech: "Python / Multi-Model Failover" },
+      { step: "4. React Analytics Dashboard", detail: "Interactive dark-mode UI with 100-App Matrix, filters & evidence drawers", tech: "React / Vite / Recharts" },
     ],
   },
   {
