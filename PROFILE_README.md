@@ -59,7 +59,14 @@
 <table>
   <tr>
     <td width="50%" valign="top">
-      <h3>⚡ 1. Vercel Clone</h3>
+      <h3>🤖 1. App Intel</h3>
+      <p><b>Composio AI App Research & Verification System (100-App Case Study)</b></p>
+      <p>Multi-agent AI research pipeline & analytics dashboard across 100 enterprise software apps. Features web discovery, Playwright doc scraping, quote verifier, and zero-wait failover.</p>
+      <p><code>Python</code> • <code>FastAPI</code> • <code>React</code> • <code>Groq AI</code> • <code>Playwright</code></p>
+      <p><a href="https://github.com/rishav-026/app-intel"><b>View Code Repository »</b></a></p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>⚡ 2. Vercel Clone</h3>
       <p><b>Automated Full-Stack Cloud Deployment Platform</b></p>
       <p>Clones Git repos, executes isolated Docker container builds, streams deployment logs, and deploys static assets to AWS S3 with custom wildcard subdomains.</p>
       <p><code>React</code> • <code>Node.js</code> • <code>Docker</code> • <code>AWS S3</code> • <code>ECS</code></p>
