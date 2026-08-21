@@ -410,7 +410,7 @@ function PortfolioHome({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span>Open for Full-Stack, Cloud & AI Engineering Roles (Bengaluru / Remote)</span>
+            <span>Open for Full-Stack, Cloud & AI Engineering Roles</span>
           </div>
 
           {/* Header Action Controls */}
@@ -978,7 +978,7 @@ function Footer({ onOpenResume, onOpenContact, onOpenRecruiterCard, onOpenAiWidg
             </h3>
 
             <p className="mt-2 text-xs sm:text-sm text-[var(--color-body)] leading-relaxed">
-              Open for Full-Stack Web Development, Cloud DevOps & Multi-Agent AI Engineering roles in Bengaluru or Remote.
+              Open for Full-Stack Web Development, Cloud DevOps & Multi-Agent AI Engineering roles.
             </p>
           </div>
 
