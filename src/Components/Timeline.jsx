@@ -90,12 +90,12 @@ export default function Timeline() {
     <section className="mt-24 font-sans" id="journey">
       {/* Header Matching Image Design */}
       <div className="text-center max-w-2xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-bold text-cyan-400 mb-4 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-bold text-emerald-400 mb-4 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
           <span className="text-sm">🗓️</span>
           <span>Journey</span>
         </div>
 
-        <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500 bg-clip-text text-transparent leading-tight">
+        <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent leading-tight drop-shadow-sm">
           My Engineering Journey
         </h2>
 
@@ -103,13 +103,13 @@ export default function Timeline() {
           From starting my engineering journey in 2023 to building 2× State Hackathon winning platforms, backend systems, and cloud solutions — here&apos;s how I&apos;ve grown as a developer.
         </p>
 
-        <div className="mt-5 mx-auto h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+        <div className="mt-5 mx-auto h-1.5 w-20 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]" />
       </div>
 
       {/* Vertical Timeline Track matching Image Layout */}
       <div className="relative mx-auto max-w-5xl px-4">
         {/* Center Vertical Glowing Line (Desktop) / Left Line (Mobile) */}
-        <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-gradient-to-b from-cyan-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(6,182,212,0.4)]" />
+        <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-gradient-to-b from-emerald-400 via-teal-400 to-cyan-400 shadow-[0_0_15px_rgba(16,185,129,0.4)]" />
 
         <div className="space-y-12">
           {journeySteps.map((step, index) => {
