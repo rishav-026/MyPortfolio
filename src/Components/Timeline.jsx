@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GraduationCap, Laptop, Bot, Zap, Brain, Sparkles, ChevronDown, ChevronUp, Code2, Trophy, CheckCircle2 } from "lucide-react";
+import { GraduationCap, Code2, Trophy, ShieldCheck, Sparkles, ChevronDown, ChevronUp, CheckCircle2, Cpu } from "lucide-react";
 
 export default function Timeline() {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -7,75 +7,82 @@ export default function Timeline() {
   const journeySteps = [
     {
       year: "2023",
-      title: "The Beginning — Started My Engineering Journey",
+      title: "Started B.E. Information Science & Engineering",
       summary:
-        "Started my B.E. in Information Science & Engineering and began building a strong foundation in programming, computer science, and problem-solving.",
-      tech: ["B.E.", "Information Science", "Programming"],
+        "Began my engineering degree at Acharya Institute of Technology, Bengaluru. Built a rock-solid foundation in computer science, core programming, discrete mathematics, and problem-solving.",
+      tech: ["B.E. ISE", "Acharya Institute", "CGPA: 8.20/10", "Computer Science"],
       icon: <GraduationCap className="h-5 w-5 text-sky-400" />,
-      projects: ["Java Algorithmic Solvers", "Personal Developer Portfolio V1"],
-      achievements: ["Enrolled in B.E. ISE @ Acharya Institute of Technology", "Maintained 8.20 CGPA academic record"],
-      lessons: "A solid grasp of core computer science fundamentals makes learning any framework fast and effortless.",
+      projects: ["C/C++ Data Structure Implementations", "Personal Developer Portfolio V1"],
+      achievements: ["Enrolled in B.E. ISE @ Acharya Institute of Technology", "Maintained 8.20 / 10 CGPA academic record"],
+      lessons: "Mastering core computer science principles and problem-solving makes picking up any new framework fast and effortless.",
     },
     {
       year: "2024",
-      title: "Building Strong Programming Foundations",
+      title: "150+ DSA Problems Solved & Web Architecture",
       summary:
-        "Deepened my knowledge of Python, Java, SQL, and core programming concepts while exploring software development through hands-on projects.",
-      tech: ["Python", "Java", "SQL", "Problem Solving"],
-      icon: <Laptop className="h-5 w-5 text-indigo-400" />,
-      projects: ["150+ LeetCode DSA Solutions", "Command Line Utility Apps"],
-      achievements: ["Solved 150+ Data Structures & Algorithms challenges on LeetCode", "Mastered OOP in Java & Python"],
-      lessons: "Problem-solving discipline and writing efficient algorithm solutions build strong engineering intuition.",
-    },
-    {
-      year: "2024",
-      title: "Exploring AI & Machine Learning",
-      summary:
-        "Started exploring Machine Learning, Deep Learning, NLP, and data processing, building practical projects to understand how AI can solve real-world problems.",
-      tech: ["Machine Learning", "Deep Learning", "NLP", "Python"],
-      icon: <Bot className="h-5 w-5 text-pink-400" />,
-      projects: ["Career Prediction AutoGluon System", "Document Classification Engine"],
-      achievements: ["Built AutoGluon ML model achieving 87%+ prediction accuracy", "HackMarch KLE Hackathon Finalist"],
-      lessons: "Real-world ML models require clean feature engineering and handling of edge-case uncertainty.",
-    },
-    {
-      year: "2025",
-      title: "Backend Engineering — FastAPI & Databases",
-      summary:
-        "Focused on backend development and building REST APIs with FastAPI while working with PostgreSQL, MongoDB, MySQL, and SQLAlchemy.",
-      tech: ["FastAPI", "REST APIs", "PostgreSQL", "MongoDB"],
-      icon: <Zap className="h-5 w-5 text-amber-400" />,
-      projects: ["FastAPI Microservice Gateway", "Invoice Processing Cloud OCR Tool"],
-      achievements: ["Designed sub-100ms REST API endpoints with async handlers", "Built tabular OCR invoice extraction pipeline"],
-      lessons: "Asynchronous I/O and strict database indexing keep APIs fast under heavy traffic concurrency.",
-    },
-    {
-      year: "2025",
-      title: "Generative AI & RAG",
-      summary:
-        "Moved deeper into LLMs, Generative AI, embeddings, vector databases, and Retrieval-Augmented Generation by building intelligent document-based applications.",
-      tech: ["LLMs", "RAG", "LangChain", "ChromaDB"],
-      icon: <Brain className="h-5 w-5 text-emerald-400" />,
-      projects: ["CivicSim AI Transparency Platform", "Sarkaar Sarthi Multilingual Welfare Assistant"],
+        "Deepened algorithmic problem-solving skills in Java, solving 150+ Data Structures & Algorithms challenges on LeetCode while mastering object-oriented design and full-stack web development.",
+      tech: ["Java (DSA)", "150+ Solved", "LeetCode", "JavaScript ES6+", "SQL"],
+      icon: <Code2 className="h-5 w-5 text-indigo-400" />,
+      projects: ["Java Algorithmic Solver Repository", "Interactive Web Components"],
       achievements: [
-        "🥈 2nd Place Winner @ Srujana State Hackathon 2025 (CivicSim)",
-        "🏆 Winner @ State Hackathon (Sarkaar Sarthi AI Multilingual Platform)",
+        "Solved 150+ Data Structures & Algorithms problems on LeetCode (@rishav1kr)",
+        "Mastered Arrays, Trees, Graphs, Dynamic Programming, and Heap optimization",
       ],
-      lessons: "RAG architectures prevent LLM hallucinations by grounding responses in verified vector database context.",
+      lessons: "Daily algorithmic practice builds strong engineering intuition for optimizing runtime complexity and data structures.",
+    },
+    {
+      year: "2025",
+      title: "2× State Hackathon Wins & AI Document Processing",
+      summary:
+        "Achieved 2nd Place at Srujana State Hackathon 2025 for CivicSim AI Transparency Platform and won the State Hackathon for Sarkaar Sarthi Multilingual AI Welfare Assistant.",
+      tech: ["CivicSim", "Sarkaar Sarthi", "Python", "FastAPI", "Gemini AI", "RAG"],
+      icon: <Trophy className="h-5 w-5 text-amber-400" />,
+      projects: [
+        "CivicSim AI Transparency Platform (Srujana 2025 2nd Place)",
+        "Sarkaar Sarthi AI Multilingual Welfare Assistant (State Winner)",
+        "Invoice Processing Cloud OCR Tool",
+      ],
+      achievements: [
+        "🥈 Winner (2nd Place) @ Srujana State Hackathon 2025 out of 100+ teams",
+        "🏆 Winner @ State Hackathon for Sarkaar Sarthi AI Multilingual Platform",
+        "Achieved 90%+ OCR data extraction accuracy on municipal grant documents",
+      ],
+      lessons: "Building under 24-hour hackathon constraints requires modular backend architecture and clear RAG vector database grounding.",
+    },
+    {
+      year: "2026",
+      title: "Oracle Cloud AI Certification & Distributed Backends",
+      summary:
+        "Earned Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate certification and architected production backend systems with FastAPI, Docker, Polygon Blockchain, and AWS.",
+      tech: ["Oracle Certified", "Docker", "AWS S3", "Polygon", "Prisma", "FastAPI"],
+      icon: <ShieldCheck className="h-5 w-5 text-emerald-400" />,
+      projects: [
+        "InfraLedger (Polygon Blockchain Audit Platform)",
+        "Automated Docker Build Worker Service",
+      ],
+      achievements: [
+        "📜 Earned Oracle Cloud OCI 2025 Certified AI Foundations Associate credential",
+        "Recorded 100+ tamper-resistant project audit hashes on Polygon blockchain",
+      ],
+      lessons: "Container isolation, immutable blockchain records, and cloud storage ensure true system accountability.",
     },
     {
       year: "NOW",
-      title: "Building Cloud Platforms & Production Systems",
+      title: "Building Cloud Platforms & Multi-Agent AI Systems",
       summary:
-        "Engineering Vercel-like automated cloud deployment pipelines, DevOps AI incident triage engines, and multi-agent AI verification platforms.",
-      tech: ["Docker", "AWS", "FastAPI", "React", "Multi-Agent AI"],
+        "Engineering scalable cloud deployment platforms, DevOps AI incident diagnosis tools, and Composio 100-App multi-agent research pipelines.",
+      tech: ["App Intel", "Vercel Clone", "LogIntelligence", "Groq AI", "Playwright"],
       icon: <Sparkles className="h-5 w-5 text-cyan-400" />,
-      projects: ["App Intel (Composio 100-App AI Research System)", "Vercel Clone (Docker/AWS S3)", "LogIntelligence (Llama 3/FastAPI)"],
-      achievements: [
-        "Oracle Cloud OCI 2025 Certified AI Foundations Associate",
-        "Engineered 100-App multi-agent research pipeline with zero-wait model failover",
+      projects: [
+        "App Intel (Composio 100-App AI Research & Verification System)",
+        "Vercel Clone (Docker/AWS Automated Deployment Platform)",
+        "LogIntelligence (DevOps AI Incident Diagnosis Engine)",
       ],
-      lessons: "Production systems require container isolation, multi-model failover policies, and deterministic verification.",
+      achievements: [
+        "Built multi-agent research pipeline with zero-wait model failover across 100 apps",
+        "Automated Git-to-S3 build pipeline with real-time log streaming",
+      ],
+      lessons: "Production AI systems require deterministic verification layers, multi-model failover, and strict data integrity.",
     },
   ];
 
@@ -93,7 +100,7 @@ export default function Timeline() {
         </h2>
 
         <p className="mt-4 text-sm sm:text-base text-[var(--color-section-muted)] leading-relaxed font-medium">
-          From starting my engineering journey in 2023 to building AI-powered systems, backend applications, and cloud solutions — here&apos;s how I&apos;ve grown as a developer.
+          From starting my engineering journey in 2023 to building 2× State Hackathon winning platforms, backend systems, and cloud solutions — here&apos;s how I&apos;ve grown as a developer.
         </p>
 
         <div className="mt-5 mx-auto h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
@@ -178,7 +185,7 @@ export default function Timeline() {
                           {/* Projects Built */}
                           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card-soft-2)] p-3.5">
                             <h4 className="font-extrabold uppercase tracking-wider text-cyan-400 mb-2 flex items-center gap-1.5">
-                              <Code2 className="h-3.5 w-3.5" /> Projects Built
+                              <Cpu className="h-3.5 w-3.5" /> Projects Built
                             </h4>
                             <ul className="space-y-1 text-[11px] text-[var(--color-body)]">
                               {step.projects.map((p) => (
@@ -206,7 +213,7 @@ export default function Timeline() {
                           </div>
                         </div>
 
-                        {/* Lessons Learned */}
+                        {/* Takeaway Lessons */}
                         <div className="rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-3.5 text-xs text-cyan-300">
                           <strong>💡 Takeaway Lesson:</strong> {step.lessons}
                         </div>
