@@ -618,7 +618,12 @@ function PortfolioHome({
           />
         </section>
 
-        <Footer onOpenResume={onOpenResume} />
+        <Footer
+          onOpenResume={onOpenResume}
+          onOpenContact={onOpenContact}
+          onOpenRecruiterCard={onOpenRecruiterCard}
+          onOpenAiWidget={onOpenAiWidget}
+        />
       </main>
 
       {/* Floating Bottom Action Badges for Desktop */}
@@ -950,52 +955,170 @@ function InteractivePanel({ title, items, onOpenCredential }) {
   );
 }
 
-function Footer({ onOpenResume }) {
+function Footer({ onOpenResume, onOpenContact, onOpenRecruiterCard, onOpenAiWidget }) {
   return (
-    <footer className="mt-24 border-t border-[var(--color-border)] pt-10 pb-6">
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <h3 className="text-2xl font-bold text-[var(--color-text)]">
-            Rishav Kumar
-          </h3>
-          <p className="mt-2 max-w-md text-[var(--color-body)] leading-7">
-            Software Engineering Student passionate about Backend Development, Cloud Computing, AI, and building scalable applications that solve real-world problems.
+    <footer className="mt-28 border-t border-[var(--color-border)] pt-12 pb-8 font-sans">
+      {/* Top CTA Banner */}
+      <div className="relative overflow-hidden rounded-[32px] border border-emerald-500/30 bg-[var(--color-card)] p-8 sm:p-10 shadow-2xl backdrop-blur-xl mb-16">
+        <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute -left-10 -bottom-10 h-48 w-48 rounded-full bg-cyan-500/10 blur-3xl" />
+
+        <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold text-emerald-400 mb-3">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span>Available for Hire</span>
+            </span>
+
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--color-text)] tracking-tight">
+              Let&apos;s build something extraordinary together 🚀
+            </h3>
+
+            <p className="mt-2 text-xs sm:text-sm text-[var(--color-body)] leading-relaxed">
+              Open for Full-Stack Web Development, Cloud DevOps & Multi-Agent AI Engineering roles in Bengaluru or Remote.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              onClick={onOpenContact}
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 px-6 py-3 text-xs font-extrabold text-slate-950 shadow-[0_0_20px_rgba(16,185,129,0.3)] transition hover:scale-105 hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]"
+            >
+              <SendIcon />
+              <span>Let&apos;s Connect</span>
+            </button>
+
+            <button
+              onClick={onOpenRecruiterCard}
+              className="inline-flex items-center gap-2 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 px-5 py-3 text-xs font-extrabold text-emerald-400 transition hover:bg-emerald-500/20 hover:scale-105"
+            >
+              <span>📱 Recruiter Cheat Sheet</span>
+            </button>
+
+            <button
+              onClick={onOpenResume}
+              className="inline-flex items-center gap-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card-soft-2)] px-5 py-3 text-xs font-bold text-[var(--color-text)] transition hover:bg-[var(--color-card-soft-strong)] hover:scale-105"
+            >
+              <FileText className="h-4 w-4 text-amber-400" />
+              <span>Resume PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Multi-Column Grid */}
+      <div className="grid gap-10 md:grid-cols-12 lg:gap-12">
+        {/* Column 1: Brand & Profile Info (5 cols) */}
+        <div className="md:col-span-6 lg:col-span-5 space-y-4">
+          <div className="flex items-center gap-3">
+            <h3 className="text-2xl font-black bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent tracking-tight">
+              Rishav Kumar
+            </h3>
+            <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-400">
+              🟢 Active
+            </span>
+          </div>
+
+          <p className="text-xs sm:text-sm text-[var(--color-body)] leading-relaxed max-w-md">
+            Software Engineering Student @ Acharya Institute of Technology, Bengaluru (B.E. ISE, CGPA: 8.20). Building full-stack deployment platforms, DevOps AI incident diagnosis tools, and multi-agent verification systems.
           </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <span className="rounded-full bg-[var(--color-card-soft)] px-3 py-1 text-sm text-[var(--color-text)]">
-              💻 150+ DSA Problems
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            <span className="rounded-full bg-[var(--color-card-soft-strong)] border border-[var(--color-border)] px-3 py-1 text-[11px] font-bold text-[var(--color-text)]">
+              💻 150+ DSA Solved (Java)
             </span>
-            <span className="rounded-full bg-[var(--color-card-soft)] px-3 py-1 text-sm text-[var(--color-text)]">
-              🏆 2× Hackathon Winner
+            <span className="rounded-full bg-[var(--color-card-soft-strong)] border border-[var(--color-border)] px-3 py-1 text-[11px] font-bold text-[var(--color-text)]">
+              🏆 2× State Hackathon Winner
             </span>
-            <span className="rounded-full bg-[var(--color-card-soft)] px-3 py-1 text-sm text-[var(--color-text)]">
-              🚀 Full Stack Developer
+            <span className="rounded-full bg-[var(--color-card-soft-strong)] border border-[var(--color-border)] px-3 py-1 text-[11px] font-bold text-[var(--color-text)]">
+              📜 Oracle AI Certified
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 text-[0.95rem]">
-          <a href="mailto:rishavkumar7034@gmail.com" className="transition hover:text-[var(--color-text)]">
-            📧 Email
-          </a>
-          <a href="https://github.com/rishav-026" target="_blank" rel="noreferrer" className="transition hover:text-[var(--color-text)]">
-            💻 GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/rishavkumar12/" target="_blank" rel="noreferrer" className="transition hover:text-[var(--color-text)]">
-            🔗 LinkedIn
-          </a>
-          <a href="#projects" className="transition hover:text-[var(--color-text)]">
-            🚀 Projects
-          </a>
-          <button onClick={onOpenResume} className="text-left transition hover:text-[var(--color-text)]">
-            📄 Resume
-          </button>
+        {/* Column 2: Quick Links (3 cols) */}
+        <div className="md:col-span-3 lg:col-span-3 space-y-3">
+          <h4 className="text-xs font-extrabold uppercase tracking-widest text-[var(--color-section-muted)]">
+            Quick Navigation
+          </h4>
+          <ul className="space-y-2 text-xs font-semibold text-[var(--color-body)]">
+            <li>
+              <a href="#projects" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span>🚀</span> <span>Featured Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="#journey" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span>🗓️</span> <span>Developer Journey</span>
+              </a>
+            </li>
+            <li>
+              <button onClick={onOpenAiWidget} className="transition hover:text-emerald-400 flex items-center gap-2 text-left">
+                <span>🤖</span> <span>Ask Portfolio AI</span>
+              </button>
+            </li>
+            <li>
+              <button onClick={onOpenRecruiterCard} className="transition hover:text-emerald-400 flex items-center gap-2 text-left">
+                <span>📱</span> <span>Recruiter Cheat Sheet</span>
+              </button>
+            </li>
+            <li>
+              <button onClick={onOpenResume} className="transition hover:text-emerald-400 flex items-center gap-2 text-left">
+                <span>📄</span> <span>View Resume (PDF)</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        {/* Column 3: Connect & Social Channels (4 cols) */}
+        <div className="md:col-span-3 lg:col-span-4 space-y-3">
+          <h4 className="text-xs font-extrabold uppercase tracking-widest text-[var(--color-section-muted)]">
+            Connect & Socials
+          </h4>
+          <ul className="space-y-2.5 text-xs font-medium text-[var(--color-body)]">
+            <li>
+              <a href="mailto:rishavkumar7034@gmail.com" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span className="text-emerald-400">📧</span>
+                <span>rishavkumar7034@gmail.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+916204627879" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span className="text-emerald-400">📞</span>
+                <span>+91 6204627879 (India)</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/rishav-026" target="_blank" rel="noreferrer" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span className="text-emerald-400">💻</span>
+                <span>GitHub (@rishav-026)</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/rishavkumar12/" target="_blank" rel="noreferrer" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span className="text-emerald-400">🔗</span>
+                <span>LinkedIn (@rishavkumar12)</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://leetcode.com/u/rishav1kr/" target="_blank" rel="noreferrer" className="transition hover:text-emerald-400 flex items-center gap-2">
+                <span className="text-amber-400">🧩</span>
+                <span>LeetCode (@rishav1kr)</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col gap-2 border-t border-[var(--color-border)] pt-6 text-sm text-[var(--color-section-muted)] md:flex-row md:items-center md:justify-between">
+      {/* Bottom Copyright & Credit Bar */}
+      <div className="mt-12 flex flex-col gap-3 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-section-muted)] sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} Rishav Kumar. All rights reserved.</p>
-        <p>Built with React • Tailwind CSS • Vite</p>
+        <p className="flex items-center gap-1.5 font-medium">
+          <span>Engineered with React</span> • <span>Tailwind CSS</span> • <span>Vite</span> • <span className="text-emerald-400 font-bold">Sub-100ms Speed ⚡</span>
+        </p>
       </div>
     </footer>
   );
